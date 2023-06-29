@@ -1,0 +1,11 @@
+﻿  AIE_Starter.cpp
+D:\Practice sessions\AI\Tutorial 1\AIE_Starter\packages\raylib.4.0.0.7\build\native\include\raygui.h(3273,60): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+D:\Practice sessions\AI\Tutorial 1\AIE_Starter\packages\raylib.4.0.0.7\build\native\include\raygui.h(3274,60): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+D:\Practice sessions\AI\Tutorial 1\AIE_Starter\AIE_Starter\AIE_Starter.cpp(42,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+  NodeMap.cpp
+D:\Practice sessions\AI\Tutorial 1\AIE_Starter\AIE_Starter\NodeMap.cpp(98,16): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+D:\Practice sessions\AI\Tutorial 1\AIE_Starter\AIE_Starter\NodeMap.cpp(105,29): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+D:\Practice sessions\AI\Tutorial 1\AIE_Starter\AIE_Starter\NodeMap.cpp(107,31): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+  Pathfinding.cpp
+  Generating Code...
+D:\Practice sessions\AI\Tutorial 1\AIE_Starter\AIE_Starter\NodeMap.cpp(24): error C4716: 'AIForGames::DijkstraSearch': must return a value
