@@ -40,78 +40,76 @@ Creating a Pathing Agent
 #include "raygui.h"
 #include "Pathfinding.h"
 #include <string>;
-#include "NodeMap.cpp"
+#include "NodeMap.h"
 
 using namespace std;
-//using namespace AIForGames;
+using namespace AIForGames;
 
-namespace AIForGames {
-    int main(int argc, char* argv[])
-    {
-        // Initialization
-        //--------------------------------------------------------------------------------------
-        int screenWidth = 800;
-        int screenHeight = 450;
+int main(int argc, char* argv[])
+{
+	// Initialization
+	//--------------------------------------------------------------------------------------
+	int screenWidth = 800;
+	int screenHeight = 450;
 
-        InitWindow(screenWidth, screenHeight, "raylib [core] example - basic window");
+	InitWindow(screenWidth, screenHeight, "raylib [core] example - basic window");
 
-        SetTargetFPS(60);
-        //--------------------------------------------------------------------------------------
+	SetTargetFPS(60);
+	//--------------------------------------------------------------------------------------
 
-        // ZORA: Tutorial requests making an ASCII art map to visualise the node map
-        // Create a vector of strings, with each string representing a line of the map.
-        // "We can use a code such as 0 = solid wall, 1 =  navigable space, and set up anything from a simple test shape to a complex maze for pathfinding to take place in"
-
-
-        // 12x8 grid of chars denoting whether or not a cell is navigable (1) or impassable (0)
-        vector<string> asciiMap;
-        asciiMap.push_back("000000000000");     // row 1
-        asciiMap.push_back("010111011100");     // row 2
-        asciiMap.push_back("010101110110");     // row 3
-        asciiMap.push_back("010100000000");     // row 4
-        asciiMap.push_back("010111111110");     // row 5
-        asciiMap.push_back("010000001000");     // row 6
-        asciiMap.push_back("011111111110");     // row 7
-        asciiMap.push_back("000000000000");     // row 8
-
-        // Create a NodeMap class with a width, height and cell size, ie the spacing in pixels between consecutive squares in the grid. We’ll give it a function to initialize it’s data from the ASCII map declared above.
-
-        NodeMap* map = new NodeMap();
-        map->Initialise(asciiMap, 50);
-
-        // Set the starting node for the Dijkstra search equal to the Node* in row 1, column 1 (in the ascii map)
-        Node* start = map->GetNode(1, 1);
-        Node* end = map->GetNode(10, 2);
-        vector<Node*> nodeMapPath = map->DijkstraSearch(start, end);
+	// ZORA: Tutorial requests making an ASCII art map to visualise the node map
+	// Create a vector of strings, with each string representing a line of the map.
+	// "We can use a code such as 0 = solid wall, 1 =  navigable space, and set up anything from a simple test shape to a complex maze for pathfinding to take place in"
 
 
-        // Main game loop
-        while (!WindowShouldClose())    // Detect window close button or ESC key
-        {
-            // Update
-            //----------------------------------------------------------------------------------
-            // TODO: Update your variables here
-            //----------------------------------------------------------------------------------
+	// 12x8 grid of chars denoting whether or not a cell is navigable (1) or impassable (0)
+	vector<string> asciiMap;
+	asciiMap.push_back("000000000000");     // row 1
+	asciiMap.push_back("010111011100");     // row 2
+	asciiMap.push_back("010101110110");     // row 3
+	asciiMap.push_back("010100000000");     // row 4
+	asciiMap.push_back("010111111110");     // row 5
+	asciiMap.push_back("010000001000");     // row 6
+	asciiMap.push_back("011111111110");     // row 7
+	asciiMap.push_back("000000000000");     // row 8
 
-            // Draw
-            //----------------------------------------------------------------------------------
-            BeginDrawing();
+	// Create a NodeMap class with a width, height and cell size, ie the spacing in pixels between consecutive squares in the grid. We’ll give it a function to initialize it’s data from the ASCII map declared above.
 
-            map->Draw();
+	NodeMap* map = new NodeMap();
+	map->Initialise(asciiMap, 50);
 
-            ClearBackground(RAYWHITE);
+	// Set the starting node for the Dijkstra search equal to the Node* in row 1, column 1 (in the ascii map)
+	Node* start = map->GetNode(1, 1);
+	Node* end = map->GetNode(10, 2);
+	vector<Node*> nodeMapPath = map->DijkstraSearch(start, end);
 
-            DrawText("Congrats! You created your first window!", 190, 200, 20, LIGHTGRAY);
 
-            EndDrawing();
-            //----------------------------------------------------------------------------------
-        }
+	// Main game loop
+	while (!WindowShouldClose())    // Detect window close button or ESC key
+	{
+		// Update
+		//----------------------------------------------------------------------------------
+		// TODO: Update your variables here
+		//----------------------------------------------------------------------------------
 
-        // De-Initialization
-        //--------------------------------------------------------------------------------------   
-        CloseWindow();        // Close window and OpenGL context
-        //--------------------------------------------------------------------------------------
+		// Draw
+		//----------------------------------------------------------------------------------
+		BeginDrawing();
 
-        return 0;
-    }
+		map->Draw();
+
+		ClearBackground(RAYWHITE);
+
+		DrawText("Congrats! You created your first window!", 190, 200, 20, LIGHTGRAY);
+
+		EndDrawing();
+		//----------------------------------------------------------------------------------
+	}
+
+	// De-Initialization
+	//--------------------------------------------------------------------------------------   
+	CloseWindow();        // Close window and OpenGL context
+	//--------------------------------------------------------------------------------------
+
+	return 0;
 }

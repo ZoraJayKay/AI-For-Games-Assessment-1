@@ -264,7 +264,8 @@ namespace AIForGames {
 			// 4.4.1: Create an iterator to find the location of the current node in the open list
 			vector<Node*>::iterator itr_00 = find(openList.begin(), openList.end(), currentNode);
 			// Save the position in the list where the current node was found
-			int index_00 = distance(closedList.begin(), itr_00);
+			int index_00 = 0;
+			index_00 = distance(closedList.begin(), itr_00);
 			// Erase the found node from the list
 			openList.erase(openList.begin() + index_00);
 			cout << "Step 4.4: The current node has been removed from the open list." << endl;
@@ -283,8 +284,10 @@ namespace AIForGames {
 				cout << "Step 4.6.1: An Edge was found and its target Node has been searched for in the closed and open lists." << endl;
 
 				// Save the position in the closed and open lists where this edge's target node was found
-				int index_01 = distance(closedList.begin(), itr_01);
-				int index_02 = distance(openList.begin(), itr_02);
+				int index_01 = 0;
+				index_01 = distance(closedList.begin(), itr_01);
+				int index_02 = 0;
+				index_02 = distance(openList.begin(), itr_02);
 
 				// 4.6.2: If the iterator did not find the target node in the closed list (if it reached the end of the closed list) Then the target node of this edge needs to be processed.
 				if (itr_01 == closedList.end()) {
