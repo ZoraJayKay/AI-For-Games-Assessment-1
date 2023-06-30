@@ -10,16 +10,16 @@ namespace AIForGames
 
     // ZORA: Default struct for an edge of a directed flow graph (target node and cost to get there)
     struct Edge {
-        Node* target;
+        Node* targetNode;
         float cost;
 
         // Default constructor
         Edge();
 
         // Overloaded constructor
-        // How is this read?
         // "provide an explicit default constructor to replace the implicit one that gets created if you don’t specify any constructors."
-        Edge(Node* _target, float _cost) : target(_target), cost(_cost) {}
+        // Define an overloaded constructor with the arguments _target and _cost, and assign _target to 'target', and _cost' to cost
+        Edge(Node* _target, float _cost) : targetNode(_target), cost(_cost) {}
 
         // Default destructor
         ~Edge();

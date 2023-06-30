@@ -2,63 +2,29 @@
 #include "raylib.h"
 #include <iostream>
 #include <vector>
+#include <algorithm>
+
+using namespace std;
 
 namespace AIForGames {
-	// global function for the AIForGames namespace. Calculates a series of Node Pointers that go from a start node to an end node.
-	// This is a namespace global function so it is initialised in this .cpp file rather than being declared in the .h file
-	std::vector<Node*> DijkstraSearch(Node* startNode, Node* endNode) {
-		// Create a 'list' (here the list is a vector) of nodes/vertices not yet processed
-		//std::vector<Node*>* openList = new std::vector<Node*>;
-		std::vector<Node*> openList;
-		// Create a 'list' (here the list is a vector) of nodes/vertices finished being processed
-		//std::vector<Node*>* closedList = new std::vector<Node*>;
-		std::vector<Node*> closedList;
-		// A pointer to a Node that is the current node being processed
-		Node* currentNode = new Node;
+	//// A global namespace lambda expression to be used as a function object for returning whether one node has a larger g score than another, inside a sort algorithm. I'm not searching by a property, always run the body of the expression based on the node's respective g scores.
+	//auto lambdaNodeSort = [](Node* const& lhs, Node* const& rhs) -> bool {
+	//	// Return true if the left hand side integer is less than the right hand side integer, otherwise return false
+	//	return lhs->gScore < rhs->gScore;
+	//};
 
-		std::cout << "Step 1: Check the starting and ending positions for existence." << std::endl;
-		startNode == nullptr || endNode == nullptr												// If this is true
-			? std::cout << "Error - start or end, or both, do not exist." << std::endl	// Do this (add functionality)
-			: std::cout << "Start and end both exist. Continue." << std::endl;			// Else do this (add functionality)
+	// This is a global namespace function for the AIForGames namespace which will print the node path from back to front for a completed Dijkstra search.
+	void NodeMap::Print(vector<Node*> path) {
+		int counter = path.size();
 
-		startNode == endNode																		// If this is true
-			? std::cout << "Start and end are same - path is complete." << std::endl		// Do this (add functionality)
-			: std::cout << "Start node and end node are different. Continue.\n" << std::endl;	// Else do this (add functionality)
-
-
-		std::cout << "Step 2: Initialise the starting node." << std::endl;
-		// Set distance from the starting node = 0.
-		startNode->gScore = 0;
-		std::cout << "Distance from starting node: 0." << std::endl;
-		// Set no previous node for the origin.
-		startNode->previousNode = nullptr;
-		std::cout << "Origin has no previous node.\n" << std::endl;
-
-
-		std::cout << "Step 3: Add the starting node to the list of open nodes\n." << std::endl;
-		openList.push_back(startNode);
-		//openList->push_back(startNode);
-
-
-		std::cout << "Step 4: While the open list is not empty, run the Dijkstra search for the end node." << std::endl;
-		while (openList.size() != 0) {
-			// sort the open list so that the smallest g value (Dijkstra) or f value (A*) is at the front
-
-			currentNode = *openList.begin();
-			std::cout << "Step 4.1: First node in the open list has been set as the current node." << std::endl;
-
-			std::cout << "Step 4.2: Check if the end node has been reached." << std::endl;
-			if (currentNode == endNode) {
-				std::cout << "Step 4.2: The end node has been reached - while loop ended.\n" << std::endl;
-				break;
-			}
-			std::cout << "Step 4.2: The end node has not been reached - while loop continuing." << std::endl;
-
-			// FIX - not sure how to convert from one vector to another type of vector...?
-			openList.erase(*currentNode);
-
-		}
+		while (counter != 0) {
+			for (Node* n : path) {
+				cout << "Node [" << counter << "]: g score [" << n->gScore << "]." << endl;
+				counter--;
+			};
+		};
 	};
+
 
 	// Default constructor
 	NodeMap::NodeMap() {};
@@ -113,7 +79,7 @@ namespace AIForGames {
 						// Draw the connections between the node and its neighbours, for every edge of this node
 						for (int i = 0; i < node->connections.size(); i++) {
 							// Create a temporary node pointer that points to each of the nodes connected to this one by an edge
-							Node* other = node->connections[i].target;
+							Node* other = node->connections[i].targetNode;
 							// Draw a line from the centre of this node to the centre of the other node (not their top-right {0,0} origins)
 							DrawLine(
 								// This is the standard text but I don't understand why I would use this when we define the position?
@@ -219,5 +185,164 @@ namespace AIForGames {
 				};
 			};
 		};
+	};
+
+	// This is a function for calculating a series of Node Pointers that go from a start node to an end node.
+	vector<Node*> NodeMap::DijkstraSearch(Node* startNode, Node* endNode) {
+		// A lambda expression to be used as a function object for returning whether one node has a larger g score than another, inside a sort algorithm. I'm not searching by a property, always run the body of the expression based on the node's respective g scores.
+		auto lambdaNodeSort = [](Node* const& lhs, Node* const& rhs) -> bool {
+			// Return true if the left hand side integer is less than the right hand side integer, otherwise return false
+			return lhs->gScore < rhs->gScore;
+		};
+
+
+		//	DIJKSTRA SEARCH FUNCTION -------------------------------------------------------------------------------
+		// Create a collection (here the list is a vector) of nodes/vertices not yet processed
+		//std::vector<Node*>* openList = new std::vector<Node*>;
+		vector<Node*> openList;
+
+		// Create a collection (here the list is a vector) of nodes/vertices finished being processed
+		//std::vector<Node*>* closedList = new std::vector<Node*>;
+		vector<Node*> closedList;
+
+		// A pointer to a Node that is the current node being processed
+		Node* currentNode = new Node;
+
+		//	1	----------------------------------------------------------------------------------------------------
+		cout << "Step 1: Check the starting and ending positions for existence." << endl;
+		startNode == nullptr || endNode == nullptr												// If this is true
+			? cout << "Error - start or end, or both, do not exist." << endl	// Do this (add functionality)
+			: cout << "Start and end both exist. Continue." << endl;			// Else do this (add functionality)
+
+		startNode == endNode																		// If this is true
+			? cout << "Start and end are same - path is complete." << endl		// Do this (add functionality)
+			: cout << "Start node and end node are different. Continue.\n" << endl;	// Else do this (add functionality)
+
+
+		//	2	----------------------------------------------------------------------------------------------------
+		cout << "Step 2: Initialise the starting node." << endl;
+		// Set distance from the starting node = 0.
+		startNode->gScore = 0;
+		cout << "Distance from starting node: 0." << endl;
+		// Set no previous node for the origin.
+		startNode->previousNode = nullptr;
+		cout << "Origin has no previous node.\n" << endl;
+
+
+		//	3	----------------------------------------------------------------------------------------------------
+		cout << "Step 3: Add the starting node to the list of open nodes\n." << endl;
+		openList.push_back(startNode);
+		//openList->push_back(startNode);
+
+
+		//	4	----------------------------------------------------------------------------------------------------
+		std::cout << "Step 4: While the open list is not empty, run the Dijkstra search for the end node." << endl;
+		while (openList.size() != 0) {
+			//	4.1	----------------------------------------------------------------------------------------------------
+			/* Sort the open list so that the smallest g value (Dijkstra) or f value (A*) is at the front.
+			I'm using the "Compare" container template version of the sort() function from the <algorithm> header file, together with a lambda expression which accepts two nodes and sorts them according to a comparison between their g scores, returning true/false based on the comparison. */
+			sort(
+				openList.begin(),
+				openList.end(),
+				lambdaNodeSort);
+			cout << "Step 4.1: The open list has been sorted by ascending node g score." << endl;
+
+
+			//	4.2	----------------------------------------------------------------------------------------------------
+			currentNode = *openList.begin();
+			cout << "Step 4.2: First node in the open list has been set as the current node." << endl;
+
+			//	4.3	----------------------------------------------------------------------------------------------------
+			cout << "Step 4.3: Check if the end node has been reached." << endl;
+			if (currentNode == endNode) {
+				std::cout << "Step 4.3a: The end node has been reached - while loop will end.\n" << endl;
+				break;
+			}
+			cout << "Step 4.3b: The end node has not been reached - while loop will continue." << endl;
+
+			//	4.4	----------------------------------------------------------------------------------------------------
+			// 4.4.1: Create an iterator to find the location of the current node in the open list
+			vector<Node*>::iterator itr_00 = find(openList.begin(), openList.end(), currentNode);
+			// Save the position in the list where the current node was found
+			int index_00 = distance(closedList.begin(), itr_00);
+			// Erase the found node from the list
+			openList.erase(openList.begin() + index_00);
+			cout << "Step 4.4: The current node has been removed from the open list." << endl;
+
+			//	4.5	----------------------------------------------------------------------------------------------------
+			closedList.push_back(currentNode);
+			cout << "Step 4.5: The current node has been added to the closed list (it has finished being processed)." << endl;
+
+			//	4.6	----------------------------------------------------------------------------------------------------
+			cout << "Step 4.6: Determine whether the target Nodes of the current Node's Edges have already been processed or not." << endl;
+			// For all edges of the currentNode...
+			for (Edge targetEdge : currentNode->connections) {
+				// 4.6.1: Create iterators to look at the target node of the edge and see whether it is in the closed list or open list
+				vector<Node*>::iterator itr_01 = find(closedList.begin(), closedList.end(), targetEdge.targetNode);
+				vector<Node*>::iterator itr_02 = find(openList.begin(), openList.end(), targetEdge.targetNode);
+				cout << "Step 4.6.1: An Edge was found and its target Node has been searched for in the closed and open lists." << endl;
+
+				// Save the position in the closed and open lists where this edge's target node was found
+				int index_01 = distance(closedList.begin(), itr_01);
+				int index_02 = distance(openList.begin(), itr_02);
+
+				// 4.6.2: If the iterator did not find the target node in the closed list (if it reached the end of the closed list) Then the target node of this edge needs to be processed.
+				if (itr_01 == closedList.end()) {
+					cout << "Step 4.6.2: This Edge was not found in the closed list (its processing has started but not yet finished)." << endl;
+
+					// 4.6.2.1: Calculate a hypothetical g score (for comparison against the pre-existing g score)
+					int calcdG = currentNode->gScore + targetEdge.cost;
+					cout << "Step 4.6.2.1: This Edge has a target Node with a calculated g score of [" << calcdG << "]." << endl;
+
+					// 4.6.2.2a: Then, if this node is not already in the open list...
+					if (itr_02 == openList.end()) {
+						cout << "Step 4.6.2.2a: The target Node of this Edge was not found in the open list (its processing has not yet started)." << endl;
+
+						// Make the g score of the target node equal to the g score of the current node plus the cost of this edge
+						targetEdge.targetNode->gScore = currentNode->gScore + targetEdge.cost;
+						cout
+							<< "Step 4.6.2.2a(i): The target Node of this Edge has had its g score set to ["
+							<< targetEdge.targetNode->gScore
+							<< "]." << endl;
+
+						// Make the current node be the 'previous' node of the target
+						targetEdge.targetNode->previousNode = currentNode;
+						cout << "Step 4.6.2.2a(ii): The current Node is now the parent of the target Node on this Edge." << endl;
+
+						// Add to the open list for processing
+						openList.push_back(targetEdge.targetNode);
+						cout << "Step 4.6.2.2a(iii): The target Node of this Edge has been added to the open list (its processing has started).\n" << endl;
+					}
+
+					// 4.6.2.2b: Otherwise if this node is already in the openList AND if its calculated g score is lower than its existing g score...
+					else if (calcdG < targetEdge.targetNode->gScore) {
+						cout << "Step 4.6.2.2b: This edge was found in the open list (its processing has started but not yet finished) and its g score through this Edge is lower than its existing g score through some other path (this path is shorter)." << endl;
+
+						targetEdge.targetNode->gScore = calcdG;
+						cout << "Step 4.6.2.2b(i): The target Node of this Edge has had its g score set to ["
+							<< targetEdge.targetNode->gScore
+							<< "]." << endl;
+
+						targetEdge.targetNode->previousNode = currentNode;
+						cout << "Step 4.6.2.2b(ii): The current Node is now the parent of the target Node on this Edge.\n" << endl;
+					};
+				};
+			};
+		};
+
+		//	5	----------------------------------------------------------------------------------------------------
+		cout << "Step 5: Create a path in reverse from the end node to the start node." << endl;
+		vector<Node*> path;
+		cout << "A vector of Nodes (the 'path') has been created." << endl;
+
+		currentNode = endNode;
+		while (currentNode != nullptr) {
+			path.push_back(currentNode);
+			currentNode = currentNode->previousNode;
+		}
+
+		// Should I scrub the open and closed lists and the current node of pointers?
+
+		return path;
 	};
 };

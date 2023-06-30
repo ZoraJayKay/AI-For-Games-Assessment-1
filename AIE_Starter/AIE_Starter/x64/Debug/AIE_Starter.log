@@ -1,11 +1,37 @@
 ﻿  AIE_Starter.cpp
-D:\Practice sessions\AI\Tutorial 1\AIE_Starter\packages\raylib.4.0.0.7\build\native\include\raygui.h(3273,60): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-D:\Practice sessions\AI\Tutorial 1\AIE_Starter\packages\raylib.4.0.0.7\build\native\include\raygui.h(3274,60): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-D:\Practice sessions\AI\Tutorial 1\AIE_Starter\AIE_Starter\AIE_Starter.cpp(42,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+C:\Users\s220780\Desktop\AI\AI-For-Games-Assessment-1\AIE_Starter\packages\raylib.4.0.0.7\build\native\include\raygui.h(3273,60): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\s220780\Desktop\AI\AI-For-Games-Assessment-1\AIE_Starter\packages\raylib.4.0.0.7\build\native\include\raygui.h(3274,60): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\s220780\Desktop\AI\AI-For-Games-Assessment-1\AIE_Starter\AIE_Starter\AIE_Starter.cpp(42,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+C:\Users\s220780\Desktop\AI\AI-For-Games-Assessment-1\AIE_Starter\AIE_Starter\NodeMap.cpp(18,28): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\s220780\Desktop\AI\AI-For-Games-Assessment-1\AIE_Starter\AIE_Starter\NodeMap.cpp(101,16): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\s220780\Desktop\AI\AI-For-Games-Assessment-1\AIE_Starter\AIE_Starter\NodeMap.cpp(108,29): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\s220780\Desktop\AI\AI-For-Games-Assessment-1\AIE_Starter\AIE_Starter\NodeMap.cpp(110,31): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\s220780\Desktop\AI\AI-For-Games-Assessment-1\AIE_Starter\AIE_Starter\NodeMap.cpp(267,17): warning C4244: 'initializing': conversion from '__int64' to 'int', possible loss of data
+C:\Users\s220780\Desktop\AI\AI-For-Games-Assessment-1\AIE_Starter\AIE_Starter\NodeMap.cpp(286,18): warning C4244: 'initializing': conversion from '__int64' to 'int', possible loss of data
+C:\Users\s220780\Desktop\AI\AI-For-Games-Assessment-1\AIE_Starter\AIE_Starter\NodeMap.cpp(287,18): warning C4244: 'initializing': conversion from '__int64' to 'int', possible loss of data
+C:\Users\s220780\Desktop\AI\AI-For-Games-Assessment-1\AIE_Starter\AIE_Starter\NodeMap.cpp(294,17): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+C:\Users\s220780\Desktop\AI\AI-For-Games-Assessment-1\AIE_Starter\AIE_Starter\NodeMap.cpp(302,59): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
   NodeMap.cpp
-D:\Practice sessions\AI\Tutorial 1\AIE_Starter\AIE_Starter\NodeMap.cpp(98,16): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-D:\Practice sessions\AI\Tutorial 1\AIE_Starter\AIE_Starter\NodeMap.cpp(105,29): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
-D:\Practice sessions\AI\Tutorial 1\AIE_Starter\AIE_Starter\NodeMap.cpp(107,31): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\s220780\Desktop\AI\AI-For-Games-Assessment-1\AIE_Starter\AIE_Starter\NodeMap.cpp(18,28): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\s220780\Desktop\AI\AI-For-Games-Assessment-1\AIE_Starter\AIE_Starter\NodeMap.cpp(101,16): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\s220780\Desktop\AI\AI-For-Games-Assessment-1\AIE_Starter\AIE_Starter\NodeMap.cpp(108,29): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\s220780\Desktop\AI\AI-For-Games-Assessment-1\AIE_Starter\AIE_Starter\NodeMap.cpp(110,31): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\s220780\Desktop\AI\AI-For-Games-Assessment-1\AIE_Starter\AIE_Starter\NodeMap.cpp(267,17): warning C4244: 'initializing': conversion from '__int64' to 'int', possible loss of data
+C:\Users\s220780\Desktop\AI\AI-For-Games-Assessment-1\AIE_Starter\AIE_Starter\NodeMap.cpp(286,18): warning C4244: 'initializing': conversion from '__int64' to 'int', possible loss of data
+C:\Users\s220780\Desktop\AI\AI-For-Games-Assessment-1\AIE_Starter\AIE_Starter\NodeMap.cpp(287,18): warning C4244: 'initializing': conversion from '__int64' to 'int', possible loss of data
+C:\Users\s220780\Desktop\AI\AI-For-Games-Assessment-1\AIE_Starter\AIE_Starter\NodeMap.cpp(294,17): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+C:\Users\s220780\Desktop\AI\AI-For-Games-Assessment-1\AIE_Starter\AIE_Starter\NodeMap.cpp(302,59): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
   Pathfinding.cpp
   Generating Code...
-D:\Practice sessions\AI\Tutorial 1\AIE_Starter\AIE_Starter\NodeMap.cpp(24): error C4716: 'AIForGames::DijkstraSearch': must return a value
+NodeMap.obj : error LNK2005: "public: __cdecl AIForGames::NodeMap::NodeMap(void)" (??0NodeMap@AIForGames@@QEAA@XZ) already defined in AIE_Starter.obj
+NodeMap.obj : error LNK2005: "public: __cdecl AIForGames::NodeMap::~NodeMap(void)" (??1NodeMap@AIForGames@@QEAA@XZ) already defined in AIE_Starter.obj
+NodeMap.obj : error LNK2005: "public: class std::vector<struct AIForGames::Node *,class std::allocator<struct AIForGames::Node *> > __cdecl AIForGames::NodeMap::DijkstraSearch(struct AIForGames::Node *,struct AIForGames::Node *)" (?DijkstraSearch@NodeMap@AIForGames@@QEAA?AV?$vector@PEAUNode@AIForGames@@V?$allocator@PEAUNode@AIForGames@@@std@@@std@@PEAUNode@2@0@Z) already defined in AIE_Starter.obj
+NodeMap.obj : error LNK2005: "public: void __cdecl AIForGames::NodeMap::Draw(void)" (?Draw@NodeMap@AIForGames@@QEAAXXZ) already defined in AIE_Starter.obj
+NodeMap.obj : error LNK2005: "public: struct AIForGames::Node * __cdecl AIForGames::NodeMap::GetNode(int,int)" (?GetNode@NodeMap@AIForGames@@QEAAPEAUNode@2@HH@Z) already defined in AIE_Starter.obj
+NodeMap.obj : error LNK2005: "public: void __cdecl AIForGames::NodeMap::Initialise(class std::vector<class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >,class std::allocator<class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > > >,int)" (?Initialise@NodeMap@AIForGames@@QEAAXV?$vector@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@V?$allocator@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@2@@std@@H@Z) already defined in AIE_Starter.obj
+NodeMap.obj : error LNK2005: "public: void __cdecl AIForGames::NodeMap::Print(class std::vector<struct AIForGames::Node *,class std::allocator<struct AIForGames::Node *> >)" (?Print@NodeMap@AIForGames@@QEAAXV?$vector@PEAUNode@AIForGames@@V?$allocator@PEAUNode@AIForGames@@@std@@@std@@@Z) already defined in AIE_Starter.obj
+LINK : warning LNK4098: defaultlib 'MSVCRT' conflicts with use of other libs; use /NODEFAULTLIB:library
+MSVCRTD.lib(exe_main.obj) : error LNK2019: unresolved external symbol main referenced in function "int __cdecl invoke_main(void)" (?invoke_main@@YAHXZ)
+    Hint on symbols that are defined and could potentially match:
+      "int __cdecl AIForGames::main(int,char * * const)" (?main@AIForGames@@YAHHQEAPEAD@Z)
+C:\Users\s220780\Desktop\AI\AI-For-Games-Assessment-1\AIE_Starter\x64\Debug\AIE_Starter.exe : fatal error LNK1120: 1 unresolved externals

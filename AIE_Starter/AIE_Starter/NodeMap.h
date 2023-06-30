@@ -1,7 +1,7 @@
 #pragma once
 #include "Pathfinding.h"
 #include <string>
-#include <algorithm>
+
 
 // Use the same namespace as the one set up by the tutorial
 namespace AIForGames {
@@ -34,5 +34,9 @@ namespace AIForGames {
 
 		// A function to draw the map to the screen
 		void Draw();
+
+		void Print(std::vector<Node*> path);
+
+		std::vector<Node*> DijkstraSearch(Node* startNode, Node* endNode);
 	};
 }

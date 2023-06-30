@@ -21,7 +21,7 @@ namespace AIForGames {
 
 	// Default constructor
 	Edge::Edge() {
-		target = nullptr;
+		targetNode = nullptr;
 		cost = 0;
 	};
 
