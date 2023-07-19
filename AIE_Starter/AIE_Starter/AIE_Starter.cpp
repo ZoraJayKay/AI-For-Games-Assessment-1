@@ -58,7 +58,7 @@ int main(int argc, char* argv[])
 	//--------------------------------------------------------------------------------------
 
 	// ZORA: Tutorial requests making an ASCII art map to visualise the node map
-	// Create a vector of strings, with each string representing a line of the map.
+	// Create a vector of strings, with each string representing a row line of the map.
 	// "We can use a code such as 0 = solid wall, 1 =  navigable space, and set up anything from a simple test shape to a complex maze for pathfinding to take place in"
 
 
@@ -73,14 +73,15 @@ int main(int argc, char* argv[])
 	asciiMap.push_back("011111111110");     // row 7
 	asciiMap.push_back("000000000000");     // row 8
 
-	// Create a NodeMap class with a width, height and cell size, ie the spacing in pixels between consecutive squares in the grid. We’ll give it a function to initialize it’s data from the ASCII map declared above.
-
+	// Create a NodeMap class with a width, height and cell size, ie the spacing in pixels between consecutive squares in the grid. We’ll give it a function to initialize its data from the ASCII map declared above.
 	NodeMap* map = new NodeMap();
 	map->Initialise(asciiMap, 50);
 
-	// Set the starting node for the Dijkstra search equal to the Node* in row 1, column 1 (in the ascii map)
+	// Set the starting node for the Dijkstra search equal to the Node* in column index 1, row index 1 (in the ascii map)
 	Node* start = map->GetNode(1, 1);
+	// Set the target point (the end destination) equal to the Node* in column index 10, row index 2
 	Node* end = map->GetNode(10, 2);
+	// Find the vector of nodes that constitute the Dijkstra path between (1, 1) and (10, 2)
 	vector<Node*> nodeMapPath = map->DijkstraSearch(start, end);
 
 

@@ -100,7 +100,7 @@ namespace AIForGames {
 		// Set the map's cell size equal to the cell size passed in
 		m_cellSize = cellSize;
 
-		// Set the code for empty cells to nothing
+		// Set the code for empty cells equal to nothing (0)
 		const char emptySquare = '0';
 
 		// We will assume all strings are the same length, so we'll size the map according to the number of strings and the length of the first one
@@ -113,7 +113,7 @@ namespace AIForGames {
 		// "Make me a Node pointer which points to the starting memory position of n contiguous new Node pointers"
 		m_nodes = new Node * [m_width * m_height];
 
-		// loop over the strings, creating nodes for each string
+		// loop over the strings entered in AIE_Starter.cpp, creating nodes for each string character
 		for (int y = 0; y < m_height; y++) {
 			// Each row of the ascii map is an increment 'line', staring with the first element (index 0)
 			std::string& line = asciiMap[y];
@@ -123,21 +123,22 @@ namespace AIForGames {
 			}
 
 			for (int x = 0; x < m_width; x++) {
-				// get the x-th character of the y-th row, or return an empty node if the string isn't long enough
+				// get the x-th character of the y-th row, or else return an empty node if the string isn't long enough
 				char tile = x			// if this (the target tile of this row)...
-					< line.size()		// resolves this as true (has yet to be calculated)...
+					< line.size()		// resolves this as true (true that this cell has yet to be calculated)...
 					? line[x]			// do this (return the x-th character of the y-th row)
 					: emptySquare;		// else do this (leave the target tile empty if we're at the end of the y-th row)
 
 				// create a node for anything other than a period character '.'
 				m_nodes[x + m_width * y] = tile		// if this (the target tile)...
-					== emptySquare					// resolves this as true (the target tile is empty)...
+					== emptySquare					// resolves this as true (the target tile is empty [a '0'])...
 					? nullptr						// do this (don't create a node)
-					: new Node(((float)x + 0.5f) * m_cellSize, ((float)y + 0.5f) * m_cellSize);		// else do this (create a node with x & y coordinates of where we have iterated up to in the ascii art map rows and columns, in teh middle of its 'cell' [hence the halving of cell size for height and width])
+					: new Node(((float)x + 0.5f) * m_cellSize, ((float)y + 0.5f) * m_cellSize);		// else do this (create a node with x & y coordinates of where we have iterated up to in the ascii art map rows and columns, in the middle of its 'cell' [hence the halving of cell size for height and width])
+				std::cout << "Created node at position:\tColumn (" << x << ")\tRow (" << y << ")." << std::endl;
 			}
 		}
 
-		/*
+		/* From the tute:
 		"We’re using the length of the first string to calculate the width of the rectangular node map. We put in a debug warning if any of the strings are a different length but fail gracefully if they don’t match. Extra characters will never be read. Any missing characters on the end are assumed to be not navigable, so we won’t create a node for them.
 
 		We now need to do a second pass across the grid of nodes and join them up with Edges. We can look at each Node and check its four neighbours, and create a pair of mutual Edges between them if we find an edge. For this exercise, we’ll assume that all edges are of equal cost of 1 to navigate.
@@ -151,17 +152,17 @@ namespace AIForGames {
 		for (int y = 0; y < m_height; y++) {
 			// Look to each column element...
 			for (int x = 0; x < m_width; x++) {
-				// Create a temporary node which is a duplicate of the one whose coordinates are being examined
+				// Create a temporary node pointer which points to the address of the one whose coordinates are being examined
 				Node* node = GetNode(x, y);
 				// If the node exists...
 				if (node) {
-					// Check whether there is a node to the west, including a check for array over-runs if this is the west-most column
+					// Create another temporary node pointer to check whether there is a node to the west, including a check for array over-runs if this is the west-most column
 					Node* nodeWest = x			// if this...
-						== 0					// resolves this as true...
-						? nullptr				// do this
-						: GetNode(x - 1, y);	// else do this
+						== 0					// resolves this as true ("the node to the west is empty")...
+						? nullptr				// do this (make nodeWest a nullptr)
+						: GetNode(x - 1, y);	// else do this (return the node to the west)
 
-					// If it is true that there IS a node to the west...
+					// If it is true that there IS a node to the west (nodeWest is not a nullptr)...
 					if (nodeWest) {
 						// Connect this node to the western node and give it a distance of 1
 						node->ConnectTo(nodeWest, 1);
@@ -169,13 +170,13 @@ namespace AIForGames {
 						nodeWest->ConnectTo(node, 1);
 					};
 
-					// Check whether there is a node to the south, including a check for array over-runs if this is the south-most row
+					// Create another temporary node pointer to check whether there is a node to the south, including a check for array over-runs if this is the south-most row
 					Node* nodeSouth = y			// if this...
-						== 0					// resolves this as true...
-						? nullptr				// do this
-						: GetNode(x, y - 1);	// else do this
+						== 0					// resolves this as true ("the node to the south is empty")...
+						? nullptr				// do this (make nodeSouth a nullptr)
+						: GetNode(x, y - 1);	// else do this (return the node to the south)
 
-					// If it is true that there IS a node to the south...
+					// If it is true that there IS a node to the south (nodeSouth is not a nullptr)...
 					if (nodeSouth) {
 						// Connect this node to the southern node and give it a distance of 1
 						node->ConnectTo(nodeSouth, 1);
@@ -207,9 +208,10 @@ namespace AIForGames {
 
 		// A pointer to a Node that is the current node being processed
 		Node* currentNode = new Node;
+		//Node* currentNode;
 
 		//	1	----------------------------------------------------------------------------------------------------
-		cout << "Step 1: Check the starting and ending positions for existence." << endl;
+		cout << "Step 1: Check the starting and ending node positions for existence on the map." << endl;
 		startNode == nullptr || endNode == nullptr												// If this is true
 			? cout << "Error - start or end, or both, do not exist." << endl	// Do this (add functionality)
 			: cout << "Start and end both exist. Continue." << endl;			// Else do this (add functionality)
@@ -223,20 +225,20 @@ namespace AIForGames {
 		cout << "Step 2: Initialise the starting node." << endl;
 		// Set distance from the starting node = 0.
 		startNode->gScore = 0;
-		cout << "Distance from starting node: 0." << endl;
+		cout << "Distance from starting node to itself: " << startNode->gScore << "." << endl;
 		// Set no previous node for the origin.
 		startNode->previousNode = nullptr;
 		cout << "Origin has no previous node.\n" << endl;
 
 
 		//	3	----------------------------------------------------------------------------------------------------
-		cout << "Step 3: Add the starting node to the list of open nodes\n." << endl;
+		cout << "Step 3: Add the starting node to the list of open nodes.\n" << endl;
 		openList.push_back(startNode);
 		//openList->push_back(startNode);
 
 
 		//	4	----------------------------------------------------------------------------------------------------
-		std::cout << "Step 4: While the open list is not empty, run the Dijkstra search for the end node." << endl;
+		std::cout << "Step 4: While the open list is not empty, run the Dijkstra search for the end node.\nBegin while loop\t----------" << endl;
 		while (openList.size() != 0) {
 			//	4.1	----------------------------------------------------------------------------------------------------
 			/* Sort the open list so that the smallest g value (Dijkstra) or f value (A*) is at the front.
@@ -250,7 +252,7 @@ namespace AIForGames {
 
 			//	4.2	----------------------------------------------------------------------------------------------------
 			currentNode = *openList.begin();
-			cout << "Step 4.2: First node in the open list has been set as the current node." << endl;
+			cout << "Step 4.2: First node in the open list (" << currentNode->gScore << ") has been set as the current node." << endl;
 
 			//	4.3	----------------------------------------------------------------------------------------------------
 			cout << "Step 4.3: Check if the end node has been reached." << endl;
@@ -265,7 +267,7 @@ namespace AIForGames {
 			vector<Node*>::iterator itr_00 = find(openList.begin(), openList.end(), currentNode);
 			// Save the position in the list where the current node was found
 			int index_00 = 0;
-			index_00 = distance(closedList.begin(), itr_00);
+			index_00 = distance(openList.begin(), itr_00);
 			// Erase the found node from the list
 			openList.erase(openList.begin() + index_00);
 			cout << "Step 4.4: The current node has been removed from the open list." << endl;
@@ -332,6 +334,8 @@ namespace AIForGames {
 				};
 			};
 		};
+
+		std::cout << "End while loop\t--------\n" << endl;
 
 		//	5	----------------------------------------------------------------------------------------------------
 		cout << "Step 5: Create a path in reverse from the end node to the start node." << endl;

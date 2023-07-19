@@ -3,9 +3,9 @@ C:\Users\s220780\Desktop\AI\AI-For-Games-Assessment-1\AIE_Starter\AIE_Starter\No
 C:\Users\s220780\Desktop\AI\AI-For-Games-Assessment-1\AIE_Starter\AIE_Starter\NodeMap.cpp(101,16): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
 C:\Users\s220780\Desktop\AI\AI-For-Games-Assessment-1\AIE_Starter\AIE_Starter\NodeMap.cpp(108,29): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
 C:\Users\s220780\Desktop\AI\AI-For-Games-Assessment-1\AIE_Starter\AIE_Starter\NodeMap.cpp(110,31): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\s220780\Desktop\AI\AI-For-Games-Assessment-1\AIE_Starter\AIE_Starter\NodeMap.cpp(268,23): warning C4244: '=': conversion from '__int64' to 'int', possible loss of data
-C:\Users\s220780\Desktop\AI\AI-For-Games-Assessment-1\AIE_Starter\AIE_Starter\NodeMap.cpp(288,24): warning C4244: '=': conversion from '__int64' to 'int', possible loss of data
+C:\Users\s220780\Desktop\AI\AI-For-Games-Assessment-1\AIE_Starter\AIE_Starter\NodeMap.cpp(270,23): warning C4244: '=': conversion from '__int64' to 'int', possible loss of data
 C:\Users\s220780\Desktop\AI\AI-For-Games-Assessment-1\AIE_Starter\AIE_Starter\NodeMap.cpp(290,24): warning C4244: '=': conversion from '__int64' to 'int', possible loss of data
-C:\Users\s220780\Desktop\AI\AI-For-Games-Assessment-1\AIE_Starter\AIE_Starter\NodeMap.cpp(297,17): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-C:\Users\s220780\Desktop\AI\AI-For-Games-Assessment-1\AIE_Starter\AIE_Starter\NodeMap.cpp(305,59): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-C:\Users\s220780\Desktop\AI\AI-For-Games-Assessment-1\AIE_Starter\AIE_Starter\NodeMap.cpp : fatal  error C1090: PDB API call failed, error code '3': C:\Users\s220780\Desktop\AI\AI-For-Games-Assessment-1\AIE_Starter\AIE_Starter\x64\Debug\vc143.pdb
+C:\Users\s220780\Desktop\AI\AI-For-Games-Assessment-1\AIE_Starter\AIE_Starter\NodeMap.cpp(292,24): warning C4244: '=': conversion from '__int64' to 'int', possible loss of data
+C:\Users\s220780\Desktop\AI\AI-For-Games-Assessment-1\AIE_Starter\AIE_Starter\NodeMap.cpp(299,17): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+C:\Users\s220780\Desktop\AI\AI-For-Games-Assessment-1\AIE_Starter\AIE_Starter\NodeMap.cpp(307,59): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+  AIE_Starter.vcxproj -> C:\Users\s220780\Desktop\AI\AI-For-Games-Assessment-1\AIE_Starter\x64\Debug\AIE_Starter.exe
