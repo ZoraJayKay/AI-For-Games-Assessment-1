@@ -38,6 +38,9 @@
     <ClInclude Include="NodeMap.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="memory.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="AIE_Starter.rc">

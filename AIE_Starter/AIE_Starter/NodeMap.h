@@ -32,6 +32,9 @@ namespace AIForGames {
 		// A function to return the Node* for a given pair of coordinates
 		Node* GetNode(int x, int y);
 
+		// A function for drawing the best path calculated by a Dijkstra search
+		void DrawPath(std::vector<Node*> dijkstraPath);
+
 		// A function to draw the map to the screen
 		void Draw();
 

@@ -7,12 +7,6 @@
 using namespace std;
 
 namespace AIForGames {
-	//// A global namespace lambda expression to be used as a function object for returning whether one node has a larger g score than another, inside a sort algorithm. I'm not searching by a property, always run the body of the expression based on the node's respective g scores.
-	//auto lambdaNodeSort = [](Node* const& lhs, Node* const& rhs) -> bool {
-	//	// Return true if the left hand side integer is less than the right hand side integer, otherwise return false
-	//	return lhs->gScore < rhs->gScore;
-	//};
-
 	// This is a global namespace function for the AIForGames namespace which will print the node path from back to front for a completed Dijkstra search.
 	void NodeMap::Print(vector<Node*> path) {
 		int counter = path.size();
@@ -21,6 +15,7 @@ namespace AIForGames {
 			for (Node* n : path) {
 				cout << "Node [" << counter << "]: g score [" << n->gScore << "]." << endl;
 				counter--;
+				//cout << "Node [" << counter << "] has [" << n->connections.size() << "] connections." << endl;
 			};
 		};
 	};
@@ -31,7 +26,7 @@ namespace AIForGames {
 
 	// Destructor
 	NodeMap::~NodeMap() {
-		delete m_nodes;
+		delete[] m_nodes;
 		m_nodes = nullptr;
 	};
 
@@ -40,6 +35,27 @@ namespace AIForGames {
 		return m_nodes[x + m_width * y];
 	};
 
+	// A function for drawing the best path calculated by a Dijkstra search
+	void NodeMap::DrawPath(std::vector<Node*> dijkstraPath) {
+		// A Raylib color object for the shortest path through the ascii maze (edge objects (blue)
+		Color lineColour;
+		lineColour.a = 255;
+		lineColour.r = 0;
+		lineColour.g = 0;
+		lineColour.b = 255;
+
+		// For every 
+		for (int i = 0; i < dijkstraPath.size()-1; i++) {
+			Node* other = dijkstraPath[i]->previousNode;
+
+			DrawLine(
+				(int)other->position.x,
+				(int)other->position.y,
+				(int)dijkstraPath[i]->position.x,
+				(int)dijkstraPath[i]->position.y,
+				lineColour);
+		}
+	};
 
 	void NodeMap::Draw() {
 		// A Raylib color object for the ascii maze node objects (red)
@@ -82,7 +98,7 @@ namespace AIForGames {
 							Node* other = node->connections[i].targetNode;
 							// Draw a line from the centre of this node to the centre of the other node (not their top-right {0,0} origins)
 							DrawLine(
-								// This is the standard text but I don't understand why I would use this when we define the position?
+								// This is the standard text but I don't understand why I would use this when we've already defined the position?
 								//(x + 0.5f) * m_cellSize,
 								//(y + 0.5f) * m_cellSize,
 								(int)node->position.x,		// line start x
@@ -188,6 +204,7 @@ namespace AIForGames {
 		};
 	};
 
+
 	// This is a function for calculating a series of Node Pointers that go from a start node to an end node.
 	vector<Node*> NodeMap::DijkstraSearch(Node* startNode, Node* endNode) {
 		// A lambda expression to be used as a function object for returning whether one node has a larger g score than another, inside a sort algorithm. I'm not searching by a property, always run the body of the expression based on the node's respective g scores.
@@ -198,18 +215,6 @@ namespace AIForGames {
 
 
 		//	DIJKSTRA SEARCH FUNCTION -------------------------------------------------------------------------------
-		// Create a collection (here the list is a vector) of nodes/vertices not yet processed
-		//std::vector<Node*>* openList = new std::vector<Node*>;
-		vector<Node*> openList;
-
-		// Create a collection (here the list is a vector) of nodes/vertices finished being processed
-		//std::vector<Node*>* closedList = new std::vector<Node*>;
-		vector<Node*> closedList;
-
-		// A pointer to a Node that is the current node being processed
-		Node* currentNode = new Node;
-		//Node* currentNode;
-
 		//	1	----------------------------------------------------------------------------------------------------
 		cout << "Step 1: Check the starting and ending node positions for existence on the map." << endl;
 		startNode == nullptr || endNode == nullptr												// If this is true
@@ -233,11 +238,25 @@ namespace AIForGames {
 
 		//	3	----------------------------------------------------------------------------------------------------
 		cout << "Step 3: Add the starting node to the list of open nodes.\n" << endl;
+		// Create a collection (here the list is a vector) of nodes/vertices not yet processed
+		//std::vector<Node*>* openList = new std::vector<Node*>;
+		vector<Node*> openList;
+
+		// Create a collection (here the list is a vector) of nodes/vertices finished being processed
+		//std::vector<Node*>* closedList = new std::vector<Node*>;
+		vector<Node*> closedList;
+
+		// A pointer to a Node that is the current node being processed
+		//Node* currentNode = new Node;
+		Node* currentNode;
+
 		openList.push_back(startNode);
 		//openList->push_back(startNode);
 
 
 		//	4	----------------------------------------------------------------------------------------------------
+		int counter = 0;
+
 		std::cout << "Step 4: While the open list is not empty, run the Dijkstra search for the end node.\nBegin while loop\t----------" << endl;
 		while (openList.size() != 0) {
 			//	4.1	----------------------------------------------------------------------------------------------------
@@ -248,11 +267,12 @@ namespace AIForGames {
 				openList.end(),
 				lambdaNodeSort);
 			cout << "Step 4.1: The open list has been sorted by ascending node g score." << endl;
-
+			cout << "Step 4.1.1: Begin processing node " << counter << "." << endl;
+			counter++;
 
 			//	4.2	----------------------------------------------------------------------------------------------------
 			currentNode = *openList.begin();
-			cout << "Step 4.2: First node in the open list (" << currentNode->gScore << ") has been set as the current node." << endl;
+			cout << "Step 4.2: First node in the open list (g score of " << currentNode->gScore << ") has been set as the current node." << endl;
 
 			//	4.3	----------------------------------------------------------------------------------------------------
 			cout << "Step 4.3: Check if the end node has been reached." << endl;
@@ -304,7 +324,7 @@ namespace AIForGames {
 						cout << "Step 4.6.2.2a: The target Node of this Edge was not found in the open list (its processing has not yet started)." << endl;
 
 						// Make the g score of the target node equal to the g score of the current node plus the cost of this edge
-						targetEdge.targetNode->gScore = currentNode->gScore + targetEdge.cost;
+						targetEdge.targetNode->gScore = calcdG;
 						cout
 							<< "Step 4.6.2.2a(i): The target Node of this Edge has had its g score set to ["
 							<< targetEdge.targetNode->gScore

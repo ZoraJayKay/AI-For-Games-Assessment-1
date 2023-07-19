@@ -147,6 +147,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="memory.h" />
     <ClInclude Include="NodeMap.h" />
     <ClInclude Include="Pathfinding.h" />
     <ClInclude Include="resource.h" />

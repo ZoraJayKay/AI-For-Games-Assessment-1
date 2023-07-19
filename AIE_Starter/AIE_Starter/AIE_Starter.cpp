@@ -40,7 +40,9 @@ Creating a Pathing Agent
 #include "raygui.h"
 #include "Pathfinding.h"
 #include <string>;
+#include "memory.h"
 #include "NodeMap.h"
+#include <iostream>
 
 using namespace std;
 using namespace AIForGames;
@@ -83,7 +85,16 @@ int main(int argc, char* argv[])
 	Node* end = map->GetNode(10, 2);
 	// Find the vector of nodes that constitute the Dijkstra path between (1, 1) and (10, 2)
 	vector<Node*> nodeMapPath = map->DijkstraSearch(start, end);
+	cout << "The Dijkstra path consists of " << nodeMapPath.size() << " nodes." << endl;
+	map->Print(nodeMapPath);
 
+	map->DrawPath(nodeMapPath);
+
+
+	delete map;
+	map = nullptr;
+
+	nodeMapPath.clear();
 
 	// Main game loop
 	while (!WindowShouldClose())    // Detect window close button or ESC key
@@ -97,11 +108,13 @@ int main(int argc, char* argv[])
 		//----------------------------------------------------------------------------------
 		BeginDrawing();
 
-		map->Draw();
+		//map->Draw();
+		
+		//map->DrawPath(nodeMapPath);
 
-		ClearBackground(RAYWHITE);
+		ClearBackground(BLACK);
 
-		DrawText("Congrats! You created your first window!", 190, 200, 20, LIGHTGRAY);
+		//DrawText("Congrats! You created your first window!", 190, 200, 20, LIGHTGRAY);
 
 		EndDrawing();
 		//----------------------------------------------------------------------------------
