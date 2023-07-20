@@ -3,6 +3,7 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
+#include <string>
 
 using namespace std;
 
@@ -57,26 +58,30 @@ namespace AIForGames {
 
 		for (Node* node : dijkstraPath) {
 			Node* other = node->previousNode;
-
-			DrawLine(
-				(int)other->position.x,
-				(int)other->position.y,
-				(int)node->position.x,
-				(int)node->position.y,
-				lineColour);
+			if (other != nullptr) {
+				DrawLine(
+					(int)other->position.x,
+					(int)other->position.y,
+					(int)node->position.x,
+					(int)node->position.y,
+					lineColour);
+			}			
 		}
 
-		//// For every 
-		//for (int i = 0; i < dijkstraPath.size()-1; i++) {
-		//	Node* other = dijkstraPath[i]->previousNode;
+		// Debugging / informational printouts to the screen
+		string noPath = "No path from start to end";
+		string numberOfNodes = to_string(dijkstraPath.size());
+		string numNodes = "Number of nodes in the path: " + numberOfNodes;
 
-		//	DrawLine(
-		//		(int)other->position.x,
-		//		(int)other->position.y,
-		//		(int)dijkstraPath[i]->position.x,
-		//		(int)dijkstraPath[i]->position.y,
-		//		lineColour);
-		//}
+		if (dijkstraPath.size() == 0) {
+			const char* nNodes = noPath.c_str();
+			DrawText(nNodes, 50, 420, 15, WHITE);
+		}
+
+		else {
+			const char* nNodes = numNodes.c_str();
+			DrawText(nNodes, 50, 420, 15, WHITE);
+		}		
 	};
 
 	void NodeMap::Draw() {
@@ -110,6 +115,13 @@ namespace AIForGames {
 							(int)m_cellSize - 1,		// width (minus 1 pixel to separate blocks)
 							(int)m_cellSize - 1,		// height (minus 1 pixel to separate blocks)
 							cellColour);				// colour
+
+						// Debug print the map coordinates of each empty cell (too visually busy with pathed cells included)
+						string coordinateX = to_string(x);
+						string coordinateY = to_string(y);
+						string coordsYX = "(" + coordinateY + ", " + coordinateX + ")";
+						const char* coords = coordsYX.c_str();
+						DrawText(coords, (x * m_cellSize) + 2, (y * m_cellSize) + 2, 2, WHITE);
 					}
 
 					// When there is a Node, we want to draw lines between it and its connections on its edges.

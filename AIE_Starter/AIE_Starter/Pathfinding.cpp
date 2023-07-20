@@ -8,7 +8,7 @@ namespace AIForGames {
 	Node::Node(float x, float y) {
 		position.x = x;
 		position.y = y;
-		//gScore = 0;
+		previousNode = nullptr;
 	};
 
 	// Default destructor
