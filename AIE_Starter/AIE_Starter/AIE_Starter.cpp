@@ -43,6 +43,7 @@ Creating a Pathing Agent
 #include "memory.h"
 #include "NodeMap.h"
 #include <iostream>
+#include "PathAgent.h"
 
 using namespace std;
 using namespace AIForGames;
@@ -64,7 +65,7 @@ int main(int argc, char* argv[])
 	// "We can use a code such as 0 = solid wall, 1 =  navigable space, and set up anything from a simple test shape to a complex maze for pathfinding to take place in"
 
 
-	// 12x8 grid of chars denoting whether or not a cell is navigable (1) or impassable (0)
+	// 12x8 grid of chars denoting whether or not a cell is navigable (1) or impassable (0) /// Original map from tutorial
 	vector<string> asciiMap;
 	//asciiMap.push_back("000000000000");     // row 1
 	//asciiMap.push_back("010111011100");     // row 2
@@ -96,46 +97,67 @@ int main(int argc, char* argv[])
 	// Find the vector of nodes that constitute the Dijkstra path between (1, 1) and (10, 2)
 	vector<Node*> nodeMapPath = map->DijkstraSearch(start, end);
 	cout << "The Dijkstra path consists of " << nodeMapPath.size() << " nodes." << endl;
-	map->Print(nodeMapPath);
 
-	//map->DrawPath(nodeMapPath);
+	PathAgent agent;
+	agent.SetNode(start);
+	agent.SetSpeed(32);
 
-
-	/*delete map;
-	map = nullptr;
-
-	nodeMapPath.clear();*/
+	// map->Print(nodeMapPath);
+	
+	// Time at commencement of pathfinding
+	float time = (float)GetTime();
+	float deltaTime;
 
 	// Main game loop
 	while (!WindowShouldClose())    // Detect window close button or ESC key
 	{
+		// Time at moment of update
+		float fTime = (float)GetTime();
+
+		// Change in time since last update
+		deltaTime = fTime - time;
+
+		// Reset timer for this update
+		time = fTime;
+
 		// Draw
 		//----------------------------------------------------------------------------------
 		BeginDrawing();
-
-		map->Draw();
-		
-		map->DrawPath(nodeMapPath);
-
-		// If left mouse is clicked...
-		if (IsMouseButtonPressed(0)) {
-			Vector2 mousePos = GetMousePosition();
-			start = map->GetClosestNode(glm::vec2(mousePos.x, mousePos.y));
-			nodeMapPath = map->DijkstraSearch(start, end);
-		}
-
-		// If right mouse is clicked...
-		if (IsMouseButtonPressed(1)) {
-			Vector2 mousePos = GetMousePosition();
-			end = map->GetClosestNode(glm::vec2(mousePos.x, mousePos.y));
-			nodeMapPath = map->DijkstraSearch(start, end);
-		}
 
 		ClearBackground(BLACK);
 
 		//DrawText("Congrats! You created your first window!", 190, 200, 20, LIGHTGRAY);
 
+		map->Draw();		
+		map->DrawPath(nodeMapPath);
+		map->DrawPath(agent.GetPath());
+
+		// If left mouse is clicked...
+		if (IsMouseButtonPressed(0)) {
+			Vector2 mousePos = GetMousePosition();
+			//start = map->GetClosestNode(glm::vec2(mousePos.x, mousePos.y));
+			nodeMapPath = map->DijkstraSearch(start, end);
+			nodeMapPath = NodeMap::DijkstraSearch(start, end);
+
+
+			
+			end = map->GetClosestNode(glm::vec2(mousePos.x, mousePos.y));
+			agent.GoToNode(end);
+		}
+
+		agent.Update(deltaTime);
+		agent.Draw();
+
+		// If right mouse is clicked...
+		//if (IsMouseButtonPressed(1)) {
+		//	Vector2 mousePos = GetMousePosition();
+		//	end = map->GetClosestNode(glm::vec2(mousePos.x, mousePos.y));
+		//	//nodeMapPath = map->DijkstraSearch(start, end);
+		//	nodeMapPath = NodeMap::DijkstraSearch(start, end);
+		//}		
+
 		EndDrawing();
+
 		//----------------------------------------------------------------------------------
 	}
 
@@ -143,6 +165,9 @@ int main(int argc, char* argv[])
 	//--------------------------------------------------------------------------------------   
 	CloseWindow();        // Close window and OpenGL context
 	//--------------------------------------------------------------------------------------
+
+	delete map;
+	map = nullptr;	
 
 	return 0;
 }

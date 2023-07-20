@@ -27,9 +27,19 @@ namespace AIForGames {
 
 	// Destructor
 	NodeMap::~NodeMap() {
+		for (int i = 0; i < (m_width * m_height); i++) {
+			delete m_nodes[i];
+			m_nodes[i] = nullptr;
+		}
+
 		delete[] m_nodes;
 		m_nodes = nullptr;
 	};
+
+	void NodeMap::GetMapSize() {
+		std::cout << sizeof(m_nodes[0]) << std::endl;
+	};
+
 
 	Node* NodeMap::GetClosestNode(glm::vec2 worldPos) {
 		int i = (int)(worldPos.x / m_cellSize);
@@ -48,15 +58,16 @@ namespace AIForGames {
 	};
 
 	// A function for drawing the best path calculated by a Dijkstra search
-	void NodeMap::DrawPath(std::vector<Node*> dijkstraPath) {
-		// A Raylib color object for the shortest path through the ascii maze (edge objects (blue)
+	void NodeMap::DrawPath(std::vector<Node*> path) {
+		// A Raylib color object for the shortest path through the ascii maze edge objects (blue)
 		Color lineColour;
 		lineColour.a = 255;
 		lineColour.r = 0;
 		lineColour.g = 0;
 		lineColour.b = 255;
 
-		for (Node* node : dijkstraPath) {
+		// For every node with a non-null 'previous' pointer, draw a pathing line between itself and the previous node
+		for (Node* node : path) {
 			Node* other = node->previousNode;
 			if (other != nullptr) {
 				DrawLine(
@@ -70,10 +81,10 @@ namespace AIForGames {
 
 		// Debugging / informational printouts to the screen
 		string noPath = "No path from start to end";
-		string numberOfNodes = to_string(dijkstraPath.size());
+		string numberOfNodes = to_string(path.size());
 		string numNodes = "Number of nodes in the path: " + numberOfNodes;
 
-		if (dijkstraPath.size() == 0) {
+		if (path.size() == 0) {
 			const char* nNodes = noPath.c_str();
 			DrawText(nNodes, 50, 420, 15, WHITE);
 		}
@@ -81,7 +92,9 @@ namespace AIForGames {
 		else {
 			const char* nNodes = numNodes.c_str();
 			DrawText(nNodes, 50, 420, 15, WHITE);
-		}		
+		}	
+
+
 	};
 
 	void NodeMap::Draw() {
@@ -160,7 +173,8 @@ namespace AIForGames {
 		m_width = asciiMap[0].size();
 
 		// Dynamically allocate the size of the one-dimensional array of Node pointers equal to the dimensions of the map
-		// "Make me a Node pointer which points to the starting memory position of n contiguous new Node pointers"
+		// "Make me a Node pointer which points to the starting memory position of (width * height) contiguous new Node pointers"?
+		// "Make me one new Node pointer which will point to an address that has enough contiguous memory to allocate the whole map (width * height)"?
 		m_nodes = new Node * [m_width * m_height];
 
 		// loop over the strings entered in AIE_Starter.cpp, creating nodes for each string character
@@ -273,22 +287,19 @@ namespace AIForGames {
 		//	3	----------------------------------------------------------------------------------------------------
 		cout << "Step 3: Add the starting node to the list of open nodes.\n" << endl;
 		// Create a collection (here the list is a vector) of nodes/vertices not yet processed
-		//std::vector<Node*>* openList = new std::vector<Node*>;
 		vector<Node*> openList;
 
 		// Create a collection (here the list is a vector) of nodes/vertices finished being processed
-		//std::vector<Node*>* closedList = new std::vector<Node*>;
 		vector<Node*> closedList;
 
 		// A pointer to a Node that is the current node being processed
-		//Node* currentNode = new Node;
 		Node* currentNode;
 
 		openList.push_back(startNode);
-		//openList->push_back(startNode);
 
 
 		//	4	----------------------------------------------------------------------------------------------------
+		// debug counter
 		int counter = 0;
 
 		std::cout << "Step 4: While the open list is not empty, run the Dijkstra search for the end node.\nBegin while loop\t----------" << endl;
@@ -389,6 +400,8 @@ namespace AIForGames {
 			};
 		};
 
+		
+
 		std::cout << "End while loop\t--------\n" << endl;
 
 		//	5	----------------------------------------------------------------------------------------------------
@@ -401,8 +414,6 @@ namespace AIForGames {
 			path.push_back(currentNode);
 			currentNode = currentNode->previousNode;
 		}
-
-		// Should I scrub the open and closed lists and the current node of pointers?
 
 		return path;
 	};

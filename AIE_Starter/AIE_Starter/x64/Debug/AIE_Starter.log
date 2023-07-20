@@ -1,12 +1,13 @@
-﻿  NodeMap.cpp
-C:\Users\s220780\Desktop\AI\AI-For-Games-Assessment-1\AIE_Starter\AIE_Starter\NodeMap.cpp(13,28): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\s220780\Desktop\AI\AI-For-Games-Assessment-1\AIE_Starter\AIE_Starter\NodeMap.cpp(124,63): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\Users\s220780\Desktop\AI\AI-For-Games-Assessment-1\AIE_Starter\AIE_Starter\NodeMap.cpp(124,41): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\Users\s220780\Desktop\AI\AI-For-Games-Assessment-1\AIE_Starter\AIE_Starter\NodeMap.cpp(151,16): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\s220780\Desktop\AI\AI-For-Games-Assessment-1\AIE_Starter\AIE_Starter\NodeMap.cpp(158,29): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\s220780\Desktop\AI\AI-For-Games-Assessment-1\AIE_Starter\AIE_Starter\NodeMap.cpp(160,31): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\s220780\Desktop\AI\AI-For-Games-Assessment-1\AIE_Starter\AIE_Starter\NodeMap.cpp(324,23): warning C4244: '=': conversion from '__int64' to 'int', possible loss of data
-C:\Users\s220780\Desktop\AI\AI-For-Games-Assessment-1\AIE_Starter\AIE_Starter\NodeMap.cpp(344,24): warning C4244: '=': conversion from '__int64' to 'int', possible loss of data
-C:\Users\s220780\Desktop\AI\AI-For-Games-Assessment-1\AIE_Starter\AIE_Starter\NodeMap.cpp(346,24): warning C4244: '=': conversion from '__int64' to 'int', possible loss of data
-C:\Users\s220780\Desktop\AI\AI-For-Games-Assessment-1\AIE_Starter\AIE_Starter\NodeMap.cpp(353,17): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+﻿  AIE_Starter.cpp
+C:\Users\s220780\Desktop\AI\AI-For-Games-Assessment-1\AIE_Starter\packages\raylib.4.0.0.7\build\native\include\raygui.h(3273,60): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\s220780\Desktop\AI\AI-For-Games-Assessment-1\AIE_Starter\packages\raylib.4.0.0.7\build\native\include\raygui.h(3274,60): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\s220780\Desktop\AI\AI-For-Games-Assessment-1\AIE_Starter\AIE_Starter\AIE_Starter.cpp(42,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+C:\Users\s220780\Desktop\AI\AI-For-Games-Assessment-1\AIE_Starter\AIE_Starter\memory.h(24,77): warning C4311: 'reinterpret_cast': pointer truncation from 'void *const ' to 'unsigned int'
+C:\Users\s220780\Desktop\AI\AI-For-Games-Assessment-1\AIE_Starter\AIE_Starter\memory.h(24,77): warning C4302: 'reinterpret_cast': truncation from 'void *const ' to 'unsigned int'
+C:\Users\s220780\Desktop\AI\AI-For-Games-Assessment-1\AIE_Starter\AIE_Starter\memory.h(104,1): warning C4311: 'reinterpret_cast': pointer truncation from 'void *' to 'unsigned int'
+C:\Users\s220780\Desktop\AI\AI-For-Games-Assessment-1\AIE_Starter\AIE_Starter\memory.h(104,1): warning C4302: 'reinterpret_cast': truncation from 'void *' to 'unsigned int'
+C:\Users\s220780\Desktop\AI\AI-For-Games-Assessment-1\AIE_Starter\AIE_Starter\memory.h(133,124): warning C4311: 'reinterpret_cast': pointer truncation from 'void *' to 'unsigned int'
+C:\Users\s220780\Desktop\AI\AI-For-Games-Assessment-1\AIE_Starter\AIE_Starter\memory.h(133,124): warning C4302: 'reinterpret_cast': truncation from 'void *' to 'unsigned int'
+C:\Users\s220780\Desktop\AI\AI-For-Games-Assessment-1\AIE_Starter\AIE_Starter\AIE_Starter.cpp(90,29): warning C4291: 'void *operator new(size_t,MemoryDebugger::Memblk)': no matching operator delete found; memory will not be freed if initialization throws an exception
+C:\Users\s220780\Desktop\AI\AI-For-Games-Assessment-1\AIE_Starter\AIE_Starter\memory.h(119): message : see declaration of 'operator new'
   AIE_Starter.vcxproj -> C:\Users\s220780\Desktop\AI\AI-For-Games-Assessment-1\AIE_Starter\x64\Debug\AIE_Starter.exe

@@ -25,6 +25,8 @@ namespace AIForGames {
 		// Destructor
 		~NodeMap();
 
+		void GetMapSize();
+
 		// A function to set the start/end position of the node map depending on which mouse button is pressed
 		Node* GetClosestNode(glm::vec2 worldPos);
 
@@ -43,6 +45,6 @@ namespace AIForGames {
 
 		void Print(std::vector<Node*> path);
 
-		std::vector<Node*> DijkstraSearch(Node* startNode, Node* endNode);
+		static std::vector<Node*> DijkstraSearch(Node* startNode, Node* endNode);
 	};
 }
