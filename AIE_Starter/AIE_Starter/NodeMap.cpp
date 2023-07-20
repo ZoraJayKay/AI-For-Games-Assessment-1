@@ -30,6 +30,17 @@ namespace AIForGames {
 		m_nodes = nullptr;
 	};
 
+	Node* NodeMap::GetClosestNode(glm::vec2 worldPos) {
+		int i = (int)(worldPos.x / m_cellSize);
+		if (i < 0 || i > m_width) return nullptr;
+
+		int j = (int)(worldPos.y / m_cellSize);
+		if (j < 0 || j > m_height) return nullptr;
+
+		return GetNode(i, j);
+	}
+	
+
 	Node* NodeMap::GetNode(int x, int y) {
 		// Return the node which is x nodes from the left and on the yth row
 		return m_nodes[x + m_width * y];
@@ -44,17 +55,28 @@ namespace AIForGames {
 		lineColour.g = 0;
 		lineColour.b = 255;
 
-		// For every 
-		for (int i = 0; i < dijkstraPath.size()-1; i++) {
-			Node* other = dijkstraPath[i]->previousNode;
+		for (Node* node : dijkstraPath) {
+			Node* other = node->previousNode;
 
 			DrawLine(
 				(int)other->position.x,
 				(int)other->position.y,
-				(int)dijkstraPath[i]->position.x,
-				(int)dijkstraPath[i]->position.y,
+				(int)node->position.x,
+				(int)node->position.y,
 				lineColour);
 		}
+
+		//// For every 
+		//for (int i = 0; i < dijkstraPath.size()-1; i++) {
+		//	Node* other = dijkstraPath[i]->previousNode;
+
+		//	DrawLine(
+		//		(int)other->position.x,
+		//		(int)other->position.y,
+		//		(int)dijkstraPath[i]->position.x,
+		//		(int)dijkstraPath[i]->position.y,
+		//		lineColour);
+		//}
 	};
 
 	void NodeMap::Draw() {

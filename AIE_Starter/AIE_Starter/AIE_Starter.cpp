@@ -66,14 +66,24 @@ int main(int argc, char* argv[])
 
 	// 12x8 grid of chars denoting whether or not a cell is navigable (1) or impassable (0)
 	vector<string> asciiMap;
-	asciiMap.push_back("000000000000");     // row 1
-	asciiMap.push_back("010111011100");     // row 2
-	asciiMap.push_back("010101110110");     // row 3
-	asciiMap.push_back("010100000000");     // row 4
-	asciiMap.push_back("010111111110");     // row 5
-	asciiMap.push_back("010000001000");     // row 6
-	asciiMap.push_back("011111111110");     // row 7
-	asciiMap.push_back("000000000000");     // row 8
+	//asciiMap.push_back("000000000000");     // row 1
+	//asciiMap.push_back("010111011100");     // row 2
+	//asciiMap.push_back("010101110110");     // row 3
+	//asciiMap.push_back("010100000000");     // row 4
+	//asciiMap.push_back("010111111110");     // row 5
+	//asciiMap.push_back("010000001000");     // row 6
+	//asciiMap.push_back("011111111110");     // row 7
+	//asciiMap.push_back("000000000000");     // row 8
+
+	// 14x8 grid of chars denoting whether or not a cell is navigable (1) or impassable (0) /// ALTERNATE MAP
+	asciiMap.push_back("00000000000000");     // row 1
+	asciiMap.push_back("01011101110000");     // row 2
+	asciiMap.push_back("01010111011110");     // row 3
+	asciiMap.push_back("01010000000010");     // row 4
+	asciiMap.push_back("01011111111010");     // row 5
+	asciiMap.push_back("01000000100010");     // row 6
+	asciiMap.push_back("01111111111110");     // row 7
+	asciiMap.push_back("00000000000000");     // row 8
 
 	// Create a NodeMap class with a width, height and cell size, ie the spacing in pixels between consecutive squares in the grid. We’ll give it a function to initialize its data from the ASCII map declared above.
 	NodeMap* map = new NodeMap();
@@ -88,29 +98,38 @@ int main(int argc, char* argv[])
 	cout << "The Dijkstra path consists of " << nodeMapPath.size() << " nodes." << endl;
 	map->Print(nodeMapPath);
 
-	map->DrawPath(nodeMapPath);
+	//map->DrawPath(nodeMapPath);
 
 
-	delete map;
+	/*delete map;
 	map = nullptr;
 
-	nodeMapPath.clear();
+	nodeMapPath.clear();*/
 
 	// Main game loop
 	while (!WindowShouldClose())    // Detect window close button or ESC key
 	{
-		// Update
-		//----------------------------------------------------------------------------------
-		// TODO: Update your variables here
-		//----------------------------------------------------------------------------------
-
 		// Draw
 		//----------------------------------------------------------------------------------
 		BeginDrawing();
 
-		//map->Draw();
+		map->Draw();
 		
-		//map->DrawPath(nodeMapPath);
+		map->DrawPath(nodeMapPath);
+
+		// If left mouse is clicked...
+		if (IsMouseButtonPressed(0)) {
+			Vector2 mousePos = GetMousePosition();
+			start = map->GetClosestNode(glm::vec2(mousePos.x, mousePos.y));
+			nodeMapPath = map->DijkstraSearch(start, end);
+		}
+
+		// If right mouse is clicked...
+		if (IsMouseButtonPressed(1)) {
+			Vector2 mousePos = GetMousePosition();
+			end = map->GetClosestNode(glm::vec2(mousePos.x, mousePos.y));
+			nodeMapPath = map->DijkstraSearch(start, end);
+		}
 
 		ClearBackground(BLACK);
 

@@ -8,17 +8,17 @@ C:\Users\s220780\Desktop\AI\AI-For-Games-Assessment-1\AIE_Starter\AIE_Starter\me
 C:\Users\s220780\Desktop\AI\AI-For-Games-Assessment-1\AIE_Starter\AIE_Starter\memory.h(104,1): warning C4302: 'reinterpret_cast': truncation from 'void *' to 'unsigned int'
 C:\Users\s220780\Desktop\AI\AI-For-Games-Assessment-1\AIE_Starter\AIE_Starter\memory.h(133,124): warning C4311: 'reinterpret_cast': pointer truncation from 'void *' to 'unsigned int'
 C:\Users\s220780\Desktop\AI\AI-For-Games-Assessment-1\AIE_Starter\AIE_Starter\memory.h(133,124): warning C4302: 'reinterpret_cast': truncation from 'void *' to 'unsigned int'
-C:\Users\s220780\Desktop\AI\AI-For-Games-Assessment-1\AIE_Starter\AIE_Starter\AIE_Starter.cpp(79,29): warning C4291: 'void *operator new(size_t,MemoryDebugger::Memblk)': no matching operator delete found; memory will not be freed if initialization throws an exception
+C:\Users\s220780\Desktop\AI\AI-For-Games-Assessment-1\AIE_Starter\AIE_Starter\AIE_Starter.cpp(89,29): warning C4291: 'void *operator new(size_t,MemoryDebugger::Memblk)': no matching operator delete found; memory will not be freed if initialization throws an exception
 C:\Users\s220780\Desktop\AI\AI-For-Games-Assessment-1\AIE_Starter\AIE_Starter\memory.h(119): message : see declaration of 'operator new'
   NodeMap.cpp
 C:\Users\s220780\Desktop\AI\AI-For-Games-Assessment-1\AIE_Starter\AIE_Starter\NodeMap.cpp(12,28): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\s220780\Desktop\AI\AI-For-Games-Assessment-1\AIE_Starter\AIE_Starter\NodeMap.cpp(117,16): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\s220780\Desktop\AI\AI-For-Games-Assessment-1\AIE_Starter\AIE_Starter\NodeMap.cpp(124,29): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\s220780\Desktop\AI\AI-For-Games-Assessment-1\AIE_Starter\AIE_Starter\NodeMap.cpp(126,31): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\s220780\Desktop\AI\AI-For-Games-Assessment-1\AIE_Starter\AIE_Starter\NodeMap.cpp(290,23): warning C4244: '=': conversion from '__int64' to 'int', possible loss of data
-C:\Users\s220780\Desktop\AI\AI-For-Games-Assessment-1\AIE_Starter\AIE_Starter\NodeMap.cpp(310,24): warning C4244: '=': conversion from '__int64' to 'int', possible loss of data
-C:\Users\s220780\Desktop\AI\AI-For-Games-Assessment-1\AIE_Starter\AIE_Starter\NodeMap.cpp(312,24): warning C4244: '=': conversion from '__int64' to 'int', possible loss of data
-C:\Users\s220780\Desktop\AI\AI-For-Games-Assessment-1\AIE_Starter\AIE_Starter\NodeMap.cpp(319,17): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+C:\Users\s220780\Desktop\AI\AI-For-Games-Assessment-1\AIE_Starter\AIE_Starter\NodeMap.cpp(139,16): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\s220780\Desktop\AI\AI-For-Games-Assessment-1\AIE_Starter\AIE_Starter\NodeMap.cpp(146,29): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\s220780\Desktop\AI\AI-For-Games-Assessment-1\AIE_Starter\AIE_Starter\NodeMap.cpp(148,31): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\s220780\Desktop\AI\AI-For-Games-Assessment-1\AIE_Starter\AIE_Starter\NodeMap.cpp(312,23): warning C4244: '=': conversion from '__int64' to 'int', possible loss of data
+C:\Users\s220780\Desktop\AI\AI-For-Games-Assessment-1\AIE_Starter\AIE_Starter\NodeMap.cpp(332,24): warning C4244: '=': conversion from '__int64' to 'int', possible loss of data
+C:\Users\s220780\Desktop\AI\AI-For-Games-Assessment-1\AIE_Starter\AIE_Starter\NodeMap.cpp(334,24): warning C4244: '=': conversion from '__int64' to 'int', possible loss of data
+C:\Users\s220780\Desktop\AI\AI-For-Games-Assessment-1\AIE_Starter\AIE_Starter\NodeMap.cpp(341,17): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+  Pathfinding.cpp
   Generating Code...
-LINK : warning LNK4098: defaultlib 'MSVCRT' conflicts with use of other libs; use /NODEFAULTLIB:library
-  AIE_Starter.vcxproj -> C:\Users\s220780\Desktop\AI\AI-For-Games-Assessment-1\AIE_Starter\x64\Debug\AIE_Starter.exe
+C:\Users\s220780\Desktop\AI\AI-For-Games-Assessment-1\AIE_Starter\AIE_Starter\NodeMap.cpp : fatal  error C1090: PDB API call failed, error code '3': C:\Users\s220780\Desktop\AI\AI-For-Games-Assessment-1\AIE_Starter\AIE_Starter\x64\Debug\vc143.pdb

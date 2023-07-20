@@ -25,6 +25,9 @@ namespace AIForGames {
 		// Destructor
 		~NodeMap();
 
+		// A function to set the start/end position of the node map depending on which mouse button is pressed
+		Node* GetClosestNode(glm::vec2 worldPos);
+
 		// A function for the purposes of setting up a node map according to a vector of strings, called 'asciiMap', and a given size for each node to be
 		// From the tute: "In the Initialise function we will allocate this array to match the width and height of the map (determined by the vector of strings passed in) and fill it with either newly allocated Nodes or null pointers for each square on the grid."
 		void Initialise(std::vector<std::string> asciiMap, int cellSize);
