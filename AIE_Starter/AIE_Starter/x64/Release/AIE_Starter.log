@@ -1,0 +1,32 @@
+﻿  PathAgent.cpp
+C:\Users\s220780\Desktop\AI\AI-For-Games-Assessment-1\AIE_Starter\AIE_Starter\PathAgent.cpp(22,13): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\s220780\Desktop\AI\AI-For-Games-Assessment-1\AIE_Starter\AIE_Starter\PathAgent.cpp(46,54): warning C4244: '=': conversion from 'T' to 'int', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Users\s220780\Desktop\AI\AI-For-Games-Assessment-1\AIE_Starter\AIE_Starter\PathAgent.cpp(47,54): warning C4244: '=': conversion from 'T' to 'int', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Users\s220780\Desktop\AI\AI-For-Games-Assessment-1\AIE_Starter\AIE_Starter\PathAgent.cpp(52,16): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+C:\Users\s220780\Desktop\AI\AI-For-Games-Assessment-1\AIE_Starter\AIE_Starter\PathAgent.cpp(63,21): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+C:\Users\s220780\Desktop\AI\AI-For-Games-Assessment-1\AIE_Starter\AIE_Starter\PathAgent.cpp(98,19): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+C:\Users\s220780\Desktop\AI\AI-For-Games-Assessment-1\AIE_Starter\AIE_Starter\PathAgent.cpp(101,56): warning C4244: '=': conversion from 'T' to 'int', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Users\s220780\Desktop\AI\AI-For-Games-Assessment-1\AIE_Starter\AIE_Starter\PathAgent.cpp(102,56): warning C4244: '=': conversion from 'T' to 'int', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Users\s220780\Desktop\AI\AI-For-Games-Assessment-1\AIE_Starter\AIE_Starter\PathAgent.cpp(108,20): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+  Generating code
+  1 of 390 functions ( 0.3%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    1 functions had inline decision re-evaluated but remain unchanged
+  Finished generating code
+  AIE_Starter.vcxproj -> C:\Users\s220780\Desktop\AI\AI-For-Games-Assessment-1\AIE_Starter\x64\Release\AIE_Starter.exe

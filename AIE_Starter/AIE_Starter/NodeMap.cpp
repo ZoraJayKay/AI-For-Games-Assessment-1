@@ -411,7 +411,8 @@ namespace AIForGames {
 
 		currentNode = endNode;
 		while (currentNode != nullptr) {
-			path.push_back(currentNode);
+			//path.push_back(currentNode);
+			path.insert(path.begin(), currentNode);
 			currentNode = currentNode->previousNode;
 		}
 

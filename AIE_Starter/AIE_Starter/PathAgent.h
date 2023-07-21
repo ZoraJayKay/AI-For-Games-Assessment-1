@@ -23,5 +23,7 @@ namespace AIForGames {
 		void Update(float deltaTime);
 		void GoToNode(Node* node);
 		void Draw();
+		glm::vec2 GetAgentPosition();
+		void SetAgentCurrentNode(Node* node);
 	};
 }

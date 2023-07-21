@@ -40,7 +40,7 @@ Creating a Pathing Agent
 #include "raygui.h"
 #include "Pathfinding.h"
 #include <string>;
-#include "memory.h"
+//#include "memory.h"
 #include "NodeMap.h"
 #include <iostream>
 #include "PathAgent.h"
@@ -129,32 +129,37 @@ int main(int argc, char* argv[])
 		//DrawText("Congrats! You created your first window!", 190, 200, 20, LIGHTGRAY);
 
 		map->Draw();		
-		map->DrawPath(nodeMapPath);
+		//map->DrawPath(nodeMapPath);
 		map->DrawPath(agent.GetPath());
 
 		// If left mouse is clicked...
-		if (IsMouseButtonPressed(0)) {
+		/*if (IsMouseButtonPressed(0)) {
 			Vector2 mousePos = GetMousePosition();
-			//start = map->GetClosestNode(glm::vec2(mousePos.x, mousePos.y));
+			start = map->GetClosestNode(glm::vec2(mousePos.x, mousePos.y));
 			nodeMapPath = map->DijkstraSearch(start, end);
 			nodeMapPath = NodeMap::DijkstraSearch(start, end);
+		}*/
 
-
-			
+		if (IsMouseButtonPressed(0)) {
+			Vector2 mousePos = GetMousePosition();
 			end = map->GetClosestNode(glm::vec2(mousePos.x, mousePos.y));
 			agent.GoToNode(end);
+			
+			// On mouse click, set the agent's current node = the nearest node to its current world position
+			//agent.SetAgentCurrentNode(map->GetClosestNode(agent.GetAgentPosition()));
 		}
 
+		/*map->DrawPath(agent.GetPath());*/
 		agent.Update(deltaTime);
 		agent.Draw();
 
-		// If right mouse is clicked...
+		//// If right mouse is clicked...
 		//if (IsMouseButtonPressed(1)) {
 		//	Vector2 mousePos = GetMousePosition();
 		//	end = map->GetClosestNode(glm::vec2(mousePos.x, mousePos.y));
 		//	//nodeMapPath = map->DijkstraSearch(start, end);
 		//	nodeMapPath = NodeMap::DijkstraSearch(start, end);
-		//}		
+		//}
 
 		EndDrawing();
 

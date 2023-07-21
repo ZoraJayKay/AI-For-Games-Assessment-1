@@ -2,6 +2,7 @@
 #include "NodeMap.h"
 #include <cmath>
 #include "raylib.h"
+#include <iostream>
 
 namespace AIForGames {
 	PathAgent::PathAgent() {};
@@ -22,8 +23,9 @@ namespace AIForGames {
 	};
 
 	void PathAgent::Update(float deltaTime) {
-		// 1: If the path is empty, end the function
-		if (m_path.size() == 0) {
+		// 1: If the path is empty, Don't go anywhere, and empty the path so future updates do nothing.
+		if (m_path.empty()) {
+			m_path.clear();
 			return;
 		}
 
@@ -31,9 +33,18 @@ namespace AIForGames {
 		// 2.a: DISTANCE TO NEXT NODE
 		// Distance to the next node = (position of next node - current position)
 		// Distance to the next node = magnitude of the vector between the two nodes (they are both points)
-		// 2.a.i: Calculate the vector between the destination node and current node
-		int xDistance = m_path[m_currentIndex + 1]->position.x - m_path[m_currentIndex]->position.x;
-		int yDistance = m_path[m_currentIndex + 1]->position.y - m_path[m_currentIndex]->position.y;
+		// 2.a.i: Calculate the vector between the next node and current node
+
+		int xDistance = 0;
+		int yDistance = 0;
+
+		// If there's only one node traversal, then add the origin node to the queue so that the agent will traverse back to it in the circumstance where it has left its origin, and then needs to navigate back to it (otherwise its node destination and origin will be identical and it will just stop wherever it currently is, or produce other, weirder behaviour)
+		if (m_path.size() == 1) {
+			m_path.insert(m_path.begin(), m_currentNode);
+		}
+		
+		xDistance = m_path[m_currentIndex + 1]->position.x - m_position.x;
+		yDistance = m_path[m_currentIndex + 1]->position.y - m_position.y;
 
 		glm::vec2 directionVector = {xDistance, yDistance};
 
@@ -52,48 +63,61 @@ namespace AIForGames {
 		int frameMoveTick = distance - (m_speed * deltaTime);
 
 		// 2.b.iii: If distance is greater than zero, then this frame we're just moving towards the target node; add speed * deltaTime * unit vector to our position
-		if (distance > 0) {
-			m_path[m_currentIndex]->position.x += (m_speed * deltaTime * unitVector.x);
-			m_path[m_currentIndex]->position.y += (m_speed * deltaTime * unitVector.y);
+		if (frameMoveTick > 0) {
+			m_position.x += (m_speed * deltaTime * unitVector.x);
+			m_position.y += (m_speed * deltaTime * unitVector.y);
 		}
 		
-		// 3: Otherwise, we've overshot the node.
-		// 3.a.i: Add one to currentIndex.
-		m_currentIndex += 1;
+		else {
+			// 3: Otherwise, we've overshot the node.
+			// 3.a.i: Add one to currentIndex.
+			m_currentIndex += 1;
 
-		// 3.a.ii: If we've reached the end of our path...
-		if (m_path[m_currentIndex] == *m_path.end()) {
-			// Snap to the final node...
-			m_path[m_currentIndex] = *m_path.end();
-			// ... and empty the path so future updates do nothing.
-			m_path.clear();
-		};
+			std::vector<Node*>::iterator itr = find(m_path.begin(), m_path.end(), m_path[m_currentIndex]);
+			std::cout << "Passed node " << m_currentIndex << std::endl;
 
-		// 3.a.iii: If we have a next node...
-		if (m_path[m_currentIndex] != *m_path.end()) {
-			// Then distance with the subtracted speed * deltaTime tells us how far we've overshot the node if we invert it.
-			int overshoot = -(distance + (m_speed * deltaTime));
 
-			// Find the unit vector from our previous node to the new next node...
-			xDistance = m_path[m_currentIndex + 1]->position.x - m_path[m_currentIndex - 1]->position.x;
-			yDistance = m_path[m_currentIndex + 1]->position.y - m_path[m_currentIndex - 1]->position.y;
+			// 3.a.ii: If we've reached the end of our path...
+			if (*itr == m_path.back()) {
+				std::cout << "Path end reached." << std::endl;
 
-			// Refresh vector
-			directionVector = {xDistance, yDistance};
+				// Snap to the final node...
+				SetNode(m_path.back());
+				// ... and empty the path so future updates do nothing.
+				m_path.clear();
+				return;
+			};
 
-			// Refresh magnitude / distance
-			distance = sqrt(
-				(directionVector.x * directionVector.x) +
-				(directionVector.y * directionVector.y));
+			// 3.a.iii: If we have a next node...
+			if (itr != m_path.end()) {
+				std::cout << "Path end not yet reached, continuing." << std::endl;
+				// Update the 'current' node
+				SetNode(m_path[m_currentIndex]);
 
-			// Refresh unit vector 
-			unitVector.x = directionVector.x / distance;
-			unitVector.y = directionVector.y / distance;
+				// Then distance with the subtracted speed * deltaTime tells us how far we've overshot the node if we invert it.
+				int overshoot = (distance - (m_speed * deltaTime));
 
-			// ... and move along this vector by the overshoot distance from the previous next node.
-			m_path[m_currentIndex]->position.x += overshoot * unitVector.x;
-			m_path[m_currentIndex]->position.y += overshoot * unitVector.y;
-		};		
+				// Find the unit vector from our previous node to the new next node...
+				xDistance = m_path[m_currentIndex + 1]->position.x - m_path[m_currentIndex - 1]->position.x;
+				yDistance = m_path[m_currentIndex + 1]->position.y - m_path[m_currentIndex - 1]->position.y;
+
+				// Refresh vector
+				directionVector = { xDistance, yDistance };
+
+				// Refresh magnitude / distance
+				distance = sqrt(
+					(directionVector.x * directionVector.x) +
+					(directionVector.y * directionVector.y));
+
+				// Refresh unit vector 
+				unitVector.x = directionVector.x / distance;
+				unitVector.y = directionVector.y / distance;
+
+				// ... and move along this vector by the overshoot distance from the previous next node.
+				m_position.x += overshoot * unitVector.x;
+				m_position.y += overshoot * unitVector.y;
+			};
+		}		
 	};
 
 	void PathAgent::GoToNode(Node* node) {
@@ -113,4 +137,12 @@ namespace AIForGames {
 		
 		DrawCircle((int)m_position.x, (int)m_position.y, 8, agentColour);
 	};
+
+	void PathAgent::SetAgentCurrentNode(Node* node) {
+		m_currentNode = node;
+	}
+
+	glm::vec2 PathAgent::GetAgentPosition() {
+		return m_position;
+	}
 }
