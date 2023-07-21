@@ -145,9 +145,6 @@ namespace AIForGames {
 							Node* other = node->connections[i].targetNode;
 							// Draw a line from the centre of this node to the centre of the other node (not their top-right {0,0} origins)
 							DrawLine(
-								// This is the standard text but I don't understand why I would use this when we've already defined the position?
-								//(x + 0.5f) * m_cellSize,
-								//(y + 0.5f) * m_cellSize,
 								(int)node->position.x,		// line start x
 								(int)node->position.y,		// line start y
 								(int)other->position.x,		// line end x
@@ -411,7 +408,6 @@ namespace AIForGames {
 
 		currentNode = endNode;
 		while (currentNode != nullptr) {
-			//path.push_back(currentNode);
 			path.insert(path.begin(), currentNode);
 			currentNode = currentNode->previousNode;
 		}

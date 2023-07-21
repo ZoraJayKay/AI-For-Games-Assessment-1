@@ -55,7 +55,7 @@ int main(int argc, char* argv[])
 	int screenWidth = 800;
 	int screenHeight = 450;
 
-	InitWindow(screenWidth, screenHeight, "raylib [core] example - basic window");
+	InitWindow(screenWidth, screenHeight, "Zora Jane Kerr: Artificial Intelligence for Games (Assessment 2 - Other Pathfinding Algorithms [Dijkstra's algorithm]) AIE, 2023 (student year 1)");
 
 	SetTargetFPS(60);
 	//--------------------------------------------------------------------------------------
@@ -100,7 +100,7 @@ int main(int argc, char* argv[])
 
 	PathAgent agent;
 	agent.SetNode(start);
-	agent.SetSpeed(32);
+	agent.SetSpeed(64);
 
 	// map->Print(nodeMapPath);
 	
@@ -126,12 +126,16 @@ int main(int argc, char* argv[])
 
 		ClearBackground(BLACK);
 
-		//DrawText("Congrats! You created your first window!", 190, 200, 20, LIGHTGRAY);
+		map->Draw();
 
-		map->Draw();		
-		//map->DrawPath(nodeMapPath);
-		map->DrawPath(agent.GetPath());
+		if (IsMouseButtonPressed(0)) {
+			Vector2 mousePos = GetMousePosition();
+			end = map->GetClosestNode(glm::vec2(mousePos.x, mousePos.y));
+			// On mouse click, set the agent's current node = the nearest node to its current world position
+			agent.GoToNode(end);
+		}
 
+		// ----- This code is just for demonstrating moving the path's origin -----
 		// If left mouse is clicked...
 		/*if (IsMouseButtonPressed(0)) {
 			Vector2 mousePos = GetMousePosition();
@@ -140,19 +144,7 @@ int main(int argc, char* argv[])
 			nodeMapPath = NodeMap::DijkstraSearch(start, end);
 		}*/
 
-		if (IsMouseButtonPressed(0)) {
-			Vector2 mousePos = GetMousePosition();
-			end = map->GetClosestNode(glm::vec2(mousePos.x, mousePos.y));
-			agent.GoToNode(end);
-			
-			// On mouse click, set the agent's current node = the nearest node to its current world position
-			//agent.SetAgentCurrentNode(map->GetClosestNode(agent.GetAgentPosition()));
-		}
-
-		/*map->DrawPath(agent.GetPath());*/
-		agent.Update(deltaTime);
-		agent.Draw();
-
+		// ----- This code is just for demonstrating moving the path's destination -----
 		//// If right mouse is clicked...
 		//if (IsMouseButtonPressed(1)) {
 		//	Vector2 mousePos = GetMousePosition();
@@ -160,6 +152,10 @@ int main(int argc, char* argv[])
 		//	//nodeMapPath = map->DijkstraSearch(start, end);
 		//	nodeMapPath = NodeMap::DijkstraSearch(start, end);
 		//}
+
+		map->DrawPath(agent.GetPath());
+		agent.Update(deltaTime);
+		agent.Draw();
 
 		EndDrawing();
 
