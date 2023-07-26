@@ -88,15 +88,16 @@ int main(int argc, char* argv[])
 
 	// Create a NodeMap class with a width, height and cell size, ie the spacing in pixels between consecutive squares in the grid. We’ll give it a function to initialize its data from the ASCII map declared above.
 	NodeMap* map = new NodeMap();
-	map->Initialise(asciiMap, 50);
+	
+	map->Initialise(asciiMap, AIForGames::sizeOfCell);
 
 	// Set the starting node for the Dijkstra search equal to the Node* in column index 1, row index 1 (in the ascii map)
 	Node* start = map->GetNode(1, 1);
 	// Set the target point (the end destination) equal to the Node* in column index 10, row index 2
-	Node* end = map->GetNode(10, 2);
+	//Node* end = map->GetNode(10, 2);
 	// Find the vector of nodes that constitute the Dijkstra path between (1, 1) and (10, 2)
-	vector<Node*> nodeMapPath = map->DijkstraSearch(start, end);
-	cout << "The Dijkstra path consists of " << nodeMapPath.size() << " nodes." << endl;
+	//vector<Node*> nodeMapPath = map->DijkstraSearch(start, end);
+	//cout << "The Dijkstra path consists of " << nodeMapPath.size() << " nodes." << endl;
 
 	PathAgent agent;
 	agent.SetNode(start);
@@ -130,29 +131,31 @@ int main(int argc, char* argv[])
 
 		if (IsMouseButtonPressed(0)) {
 			Vector2 mousePos = GetMousePosition();
-			end = map->GetClosestNode(glm::vec2(mousePos.x, mousePos.y));
+			Node* end = map->GetClosestNode(glm::vec2(mousePos.x, mousePos.y));
 			// On mouse click, set the agent's current node = the nearest node to its current world position
 			agent.GoToNode(end);
 		}
 
-		// ----- This code is just for demonstrating moving the path's origin -----
-		// If left mouse is clicked...
-		/*if (IsMouseButtonPressed(0)) {
-			Vector2 mousePos = GetMousePosition();
-			start = map->GetClosestNode(glm::vec2(mousePos.x, mousePos.y));
-			nodeMapPath = map->DijkstraSearch(start, end);
-			nodeMapPath = NodeMap::DijkstraSearch(start, end);
-		}*/
-
-		// ----- This code is just for demonstrating moving the path's destination -----
-		//// If right mouse is clicked...
-		//if (IsMouseButtonPressed(1)) {
+		//// ----- This code is just for demonstrating moving the path's origin -----
+		//// If left mouse is clicked...
+		//if (IsMouseButtonPressed(0)) {
 		//	Vector2 mousePos = GetMousePosition();
-		//	end = map->GetClosestNode(glm::vec2(mousePos.x, mousePos.y));
-		//	//nodeMapPath = map->DijkstraSearch(start, end);
+		//	start = map->GetClosestNode(glm::vec2(mousePos.x, mousePos.y));
+		//	nodeMapPath = map->DijkstraSearch(start, end);
 		//	nodeMapPath = NodeMap::DijkstraSearch(start, end);
 		//}
 
+		//// ----- This code is just for demonstrating moving the path's destination -----
+		////// If right mouse is clicked...
+		//if (IsMouseButtonPressed(1)) {
+		//	Vector2 mousePos = GetMousePosition();
+		//	end = map->GetClosestNode(glm::vec2(mousePos.x, mousePos.y));
+		//	nodeMapPath = map->DijkstraSearch(start, end);
+		//	nodeMapPath = NodeMap::DijkstraSearch(start, end);
+		//}
+
+		
+		//map->DrawPath(nodeMapPath);
 		map->DrawPath(agent.GetPath());
 		agent.Update(deltaTime);
 		agent.Draw();

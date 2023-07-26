@@ -8,6 +8,8 @@
 using namespace std;
 
 namespace AIForGames {
+	
+
 	// This is a global namespace function for the AIForGames namespace which will print the node path from back to front for a completed Dijkstra search.
 	void NodeMap::Print(vector<Node*> path) {
 		int counter = path.size();
@@ -134,7 +136,7 @@ namespace AIForGames {
 						string coordinateY = to_string(y);
 						string coordsYX = "(" + coordinateY + ", " + coordinateX + ")";
 						const char* coords = coordsYX.c_str();
-						DrawText(coords, (x * m_cellSize) + 2, (y * m_cellSize) + 2, 2, WHITE);
+						DrawText(coords, (x * m_cellSize) + 2, (y * m_cellSize) + 2, 1, WHITE);
 					}
 
 					// When there is a Node, we want to draw lines between it and its connections on its edges.
@@ -150,6 +152,18 @@ namespace AIForGames {
 								(int)other->position.x,		// line end x
 								(int)other->position.y,		// line end y
 								lineColour);				// colour
+
+							int cellGCost = node->gScore;
+							string cellCost = to_string(cellGCost);
+							string cellString = "g: (" + cellCost + ")";
+							const char* gCost = cellString.c_str();
+							DrawText(gCost, (x * m_cellSize) + 2, (y * m_cellSize) + 15, 1, WHITE);
+
+							int cellHCost = node->hScore;
+							string stringHCost = to_string(cellHCost);
+							string hCost = "h: (" + stringHCost + ")";
+							const char* hCostChar = hCost.c_str();
+							DrawText(hCostChar, (x * m_cellSize) + 2, (y * m_cellSize) + 30, 1, WHITE);
 						};
 					};
 				};

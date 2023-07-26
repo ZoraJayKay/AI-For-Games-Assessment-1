@@ -10,6 +10,7 @@ namespace AIForGames {
 		position.y = y;
 		previousNode = nullptr;
 		gScore = 0;
+		hScore = 0;
 	};
 
 	// Default destructor

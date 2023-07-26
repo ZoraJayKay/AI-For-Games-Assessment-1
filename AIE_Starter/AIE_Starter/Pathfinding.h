@@ -32,6 +32,7 @@ namespace AIForGames
         glm::vec2 position;
         std::vector<Edge> connections;
         int gScore;
+        int hScore;
         Node* previousNode;
 
         // Default constructor
