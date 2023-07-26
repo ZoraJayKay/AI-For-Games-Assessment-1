@@ -47,6 +47,8 @@ namespace AIForGames {
 
 		void Print(std::vector<Node*> path);
 
+		void ClearMapVals();
+
 		static int Heuristic(Node* a, Node* b);
 
 		static std::vector<Node*> AStarSearch(Node* startNode, Node* endNode);

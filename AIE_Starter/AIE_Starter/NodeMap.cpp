@@ -10,14 +10,14 @@ using namespace std;
 namespace AIForGames {
 	
 
-	// This is a global namespace function for the AIForGames namespace which will print the node path from back to front for a completed Dijkstra search.
+	// This is a global namespace function for the AIForGames namespace which will print the node path from back to front for a completed A* search.
 	void NodeMap::Print(vector<Node*> path) {
 		int counter = path.size();
 
 		while (counter != 0) {
 			for (Node* n : path) {
 #ifndef NDEBUG
-				cout << "Node [" << counter << "]: g score [" << n->gScore << "]." << endl;
+				cout << "Node [" << counter << "]: g score [" << n->gScore << "], h score [" << n->hScore << "], f score [" << n->fScore << "]." << endl;
 #endif
 				counter--;
 			};
@@ -61,7 +61,7 @@ namespace AIForGames {
 		return m_nodes[x + m_width * y];
 	};
 
-	// A function for drawing the best path calculated by a Dijkstra search
+	// A function for drawing the best path calculated by a A* search
 	void NodeMap::DrawPath(std::vector<Node*> path) {
 		// A Raylib color object for the shortest path through the ascii maze edge objects (blue)
 		Color lineColour;
@@ -91,12 +91,12 @@ namespace AIForGames {
 
 		if (path.size() == 0) {
 			const char* nNodes = noPath.c_str();
-			DrawText(nNodes, 50, 420, 15, WHITE);
+			DrawText(nNodes, 50, AIForGames::sizeOfCell * 10.5, 15, WHITE);
 		}
 
 		else {
 			const char* nNodes = numNodes.c_str();
-			DrawText(nNodes, 50, 420, 15, WHITE);
+			DrawText(nNodes, 50, AIForGames::sizeOfCell * 10.5, 15, WHITE);
 		}	
 #endif
 	};
@@ -162,19 +162,36 @@ namespace AIForGames {
 							string cellCost = to_string(cellGCost);
 							string cellString = "g: (" + cellCost + ")";
 							const char* gCost = cellString.c_str();
-							DrawText(gCost, (x * m_cellSize) + 2, (y * m_cellSize) + 2, 1, WHITE);
 							
 							int cellHCost = node->hScore;
 							string stringHCost = to_string(cellHCost);
 							string hCost = "h: (" + stringHCost + ")";
 							const char* hCostChar = hCost.c_str();
-							DrawText(hCostChar, (x * m_cellSize) + 2, (y * m_cellSize) + 17, 1, WHITE);
 
 							int cellFCost = node->fScore;
 							string stringFCost = to_string(cellFCost);
 							string fCost = "f: (" + stringFCost + ")";
 							const char* fCostChar = fCost.c_str();
-							DrawText(fCostChar, (x * m_cellSize) + 2, (y * m_cellSize) + 32, 1, WHITE);
+
+							Color clr;
+
+							// If all values are nil (this node was not used for the path)
+							if (node->gScore == 0 &&
+								node->hScore == 0 &&
+								node->fScore == 0) {
+								// Then make its values grey
+								clr = GRAY;
+							}
+
+							else {
+								// Else let its colour be white (more visible)
+								clr = WHITE;
+							}
+
+							DrawText(gCost, (x * m_cellSize) + 2, (y * m_cellSize) + 1, 0.5, clr);
+							DrawText(hCostChar, (x * m_cellSize) + 2, (y * m_cellSize) + 16, 0.5, clr);
+							DrawText(fCostChar, (x * m_cellSize) + 2, (y * m_cellSize) + 31, 0.5, clr);
+							
 #endif
 						};
 					};
@@ -280,25 +297,41 @@ namespace AIForGames {
 
 	// A function to calculate the straight-line distance between one node and the end node
 	int NodeMap::Heuristic(Node* a, Node* b) {
+		// If the start or the end are null, return heuristic of nil.
 		if (a == nullptr || b == nullptr) {
 			return 0;
 		}
 
+		// otherwise calculate the 2D cartesian graph distance between the two points
 		else {
 			int xDist = (b->position.x - a->position.x);
 			int yDist = (b->position.y - a->position.y);
 			int heuristic = sqrt((xDist * xDist) + (yDist * yDist));
 
-			// Divide the distance by the size of a cell to create an h score of approximately 1 per node
+			// Calculate the heuristic as the straight-line distance divided by the average of both diagonal and straight-line cell size.
 			heuristic /= AIForGames::sizeOfCell;
 
 			return heuristic;
 		}
 	};
 
+	// A function to set all pathfinding values to nil imbetween paths, so that only the nodes checked in the most recent path are shown on debugging
+	void NodeMap::ClearMapVals() {
+		for (int y = 0; y < this->m_height; y++) {
+			for (int x = 0; x < this->m_width; x++) {
+				if (GetNode(x, y) != nullptr) {
+					GetNode(x, y)->gScore = 0;
+					GetNode(x, y)->hScore = 0;
+					GetNode(x, y)->fScore = 0;
+				}				
+			}
+		}
+	};
 
 	// This is a function for calculating a series of Node Pointers that go from a start node to an end node.
 	vector<Node*> NodeMap::AStarSearch(Node* startNode, Node* endNode) {
+		
+
 		// A lambda expression to be used as a function object for returning whether one node has a larger f score than another, inside a sort algorithm. I'm not searching by a property, always run the body of the expression based on the node's respective g scores.
 		auto lambdaNodeSort = [](Node* const& lhs, Node* const& rhs) -> bool {
 			// Return true if the left hand side integer is less than the right hand side integer, otherwise return false
@@ -354,12 +387,12 @@ namespace AIForGames {
 		// debug counter
 		int counter = 0;
 #ifndef NDEBUG
-		std::cout << "Step 4: While the open list is not empty, run the Dijkstra search for the end node.\nBegin while loop\t----------" << endl;
+		std::cout << "Step 4: While the open list is not empty, run the A* search for the end node.\nBegin while loop\t----------" << endl;
 #endif
 		while (openList.size() != 0) {
 			//	4.1	----------------------------------------------------------------------------------------------------
 			/* Sort the open list so that the smallest g value (Dijkstra) or f value (A*) is at the front.
-			I'm using the "Compare" container template version of the sort() function from the <algorithm> header file, together with a lambda expression which accepts two nodes and sorts them according to a comparison between their g scores, returning true/false based on the comparison. */
+			I'm using the "Compare" container template version of the sort() function from the <algorithm> header file, together with a lambda expression which accepts two nodes and sorts them according to a comparison between their f scores, returning true/false based on the comparison. */
 			sort(
 				openList.begin(),
 				openList.end(),
@@ -448,7 +481,7 @@ namespace AIForGames {
 						// Make the g score of the target node equal to the g score of the current node plus the cost of this edge
 						targetEdge.targetNode->gScore = calcdG;
 
-						//targetEdge.targetNode->hScore = calcdH;
+						targetEdge.targetNode->hScore = calcdH;
 
 						// Make the f score of the target node equal to g + h
 						targetEdge.targetNode->fScore = calcdF;
@@ -480,7 +513,7 @@ namespace AIForGames {
 						// Make the g score of the target node equal to the g score of the current node plus the cost of this edge
 						targetEdge.targetNode->gScore = calcdG;
 
-						//targetEdge.targetNode->hScore = calcdH;
+						targetEdge.targetNode->hScore = calcdH;
 
 						// Make the f score of the target node equal to g + h
 						targetEdge.targetNode->fScore = calcdF;
@@ -492,8 +525,8 @@ namespace AIForGames {
 #ifndef NDEBUG
 						cout << "Step 4.6.2.2b(ii): The current Node is now the parent of the target Node on this Edge.\n" << endl;
 #endif
-					};
-				};
+					}
+				}
 			};
 		};
 
@@ -505,14 +538,20 @@ namespace AIForGames {
 		cout << "Step 5: Create a path in reverse from the end node to the start node." << endl;
 #endif
 		vector<Node*> path;
-#ifndef NDEBUG
-		cout << "A vector of Nodes (the 'path') has been created." << endl;
-#endif
 
 		currentNode = endNode;
 		while (currentNode != nullptr) {
 			path.insert(path.begin(), currentNode);
 			currentNode = currentNode->previousNode;
+		}
+
+#ifndef NDEBUG
+		cout << "A vector of Nodes (the 'path') has been created. Size: [" << path.size() << "] nodes." << endl;
+#endif
+
+		// If there's only one node in the path then no path is possible; make the path null before returning it.
+		if (path.size() == 1) {
+			path.clear();
 		}
 
 		return path;

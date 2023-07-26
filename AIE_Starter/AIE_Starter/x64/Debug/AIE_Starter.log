@@ -1,2 +1,35 @@
-﻿  PriorityQueue.cpp
-  AIE_Starter.vcxproj -> C:\Users\s220780\Desktop\AI\AI-For-Games-Assessment-1\AIE_Starter\x64\Debug\AIE_Starter.exe
+﻿  NodeMap.cpp
+F:\Programming files\AIE\Diploma\AI\AI-For-Games-Assessment-1\AIE_Starter\AIE_Starter\NodeMap.cpp(15,28): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+F:\Programming files\AIE\Diploma\AI\AI-For-Games-Assessment-1\AIE_Starter\AIE_Starter\NodeMap.cpp(94,48): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+F:\Programming files\AIE\Diploma\AI\AI-For-Games-Assessment-1\AIE_Starter\AIE_Starter\NodeMap.cpp(99,48): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+F:\Programming files\AIE\Diploma\AI\AI-For-Games-Assessment-1\AIE_Starter\AIE_Starter\NodeMap.cpp(142,63): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+F:\Programming files\AIE\Diploma\AI\AI-For-Games-Assessment-1\AIE_Starter\AIE_Starter\NodeMap.cpp(142,41): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+F:\Programming files\AIE\Diploma\AI\AI-For-Games-Assessment-1\AIE_Starter\AIE_Starter\NodeMap.cpp(191,68): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+F:\Programming files\AIE\Diploma\AI\AI-For-Games-Assessment-1\AIE_Starter\AIE_Starter\NodeMap.cpp(191,63): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+F:\Programming files\AIE\Diploma\AI\AI-For-Games-Assessment-1\AIE_Starter\AIE_Starter\NodeMap.cpp(191,41): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+F:\Programming files\AIE\Diploma\AI\AI-For-Games-Assessment-1\AIE_Starter\AIE_Starter\NodeMap.cpp(192,73): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+F:\Programming files\AIE\Diploma\AI\AI-For-Games-Assessment-1\AIE_Starter\AIE_Starter\NodeMap.cpp(192,67): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+F:\Programming files\AIE\Diploma\AI\AI-For-Games-Assessment-1\AIE_Starter\AIE_Starter\NodeMap.cpp(192,45): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+F:\Programming files\AIE\Diploma\AI\AI-For-Games-Assessment-1\AIE_Starter\AIE_Starter\NodeMap.cpp(193,73): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+F:\Programming files\AIE\Diploma\AI\AI-For-Games-Assessment-1\AIE_Starter\AIE_Starter\NodeMap.cpp(193,67): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+F:\Programming files\AIE\Diploma\AI\AI-For-Games-Assessment-1\AIE_Starter\AIE_Starter\NodeMap.cpp(193,45): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+F:\Programming files\AIE\Diploma\AI\AI-For-Games-Assessment-1\AIE_Starter\AIE_Starter\NodeMap.cpp(204,16): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+F:\Programming files\AIE\Diploma\AI\AI-For-Games-Assessment-1\AIE_Starter\AIE_Starter\NodeMap.cpp(211,29): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+F:\Programming files\AIE\Diploma\AI\AI-For-Games-Assessment-1\AIE_Starter\AIE_Starter\NodeMap.cpp(213,31): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+F:\Programming files\AIE\Diploma\AI\AI-For-Games-Assessment-1\AIE_Starter\AIE_Starter\NodeMap.cpp(307,14): warning C4244: 'initializing': conversion from 'T' to 'int', possible loss of data
+          with
+          [
+              T=float
+          ]
+F:\Programming files\AIE\Diploma\AI\AI-For-Games-Assessment-1\AIE_Starter\AIE_Starter\NodeMap.cpp(308,14): warning C4244: 'initializing': conversion from 'T' to 'int', possible loss of data
+          with
+          [
+              T=float
+          ]
+F:\Programming files\AIE\Diploma\AI\AI-For-Games-Assessment-1\AIE_Starter\AIE_Starter\NodeMap.cpp(309,18): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+F:\Programming files\AIE\Diploma\AI\AI-For-Games-Assessment-1\AIE_Starter\AIE_Starter\NodeMap.cpp(314,21): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+F:\Programming files\AIE\Diploma\AI\AI-For-Games-Assessment-1\AIE_Starter\AIE_Starter\NodeMap.cpp(436,23): warning C4244: '=': conversion from '__int64' to 'int', possible loss of data
+F:\Programming files\AIE\Diploma\AI\AI-For-Games-Assessment-1\AIE_Starter\AIE_Starter\NodeMap.cpp(462,24): warning C4244: '=': conversion from '__int64' to 'int', possible loss of data
+F:\Programming files\AIE\Diploma\AI\AI-For-Games-Assessment-1\AIE_Starter\AIE_Starter\NodeMap.cpp(464,24): warning C4244: '=': conversion from '__int64' to 'int', possible loss of data
+F:\Programming files\AIE\Diploma\AI\AI-For-Games-Assessment-1\AIE_Starter\AIE_Starter\NodeMap.cpp(472,17): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+  AIE_Starter.vcxproj -> F:\Programming files\AIE\Diploma\AI\AI-For-Games-Assessment-1\AIE_Starter\x64\Debug\AIE_Starter.exe

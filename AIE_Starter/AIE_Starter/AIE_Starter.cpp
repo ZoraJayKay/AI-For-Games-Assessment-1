@@ -55,7 +55,7 @@ int main(int argc, char* argv[])
 	int screenWidth = 1200;
 	int screenHeight = 700;
 
-	InitWindow(screenWidth, screenHeight, "Zora Jane Kerr: Artificial Intelligence for Games (Assessment 2 - Other Pathfinding Algorithms [Dijkstra's algorithm]) AIE, 2023 (student year 1)");
+	InitWindow(screenWidth, screenHeight, "Zora Jane Kerr: Artificial Intelligence for Games (Assessment 1 - Implement the A* Pathfinding Algorithm) AIE, 2023 (student year 1)");
 
 	SetTargetFPS(60);
 	//--------------------------------------------------------------------------------------
@@ -63,10 +63,10 @@ int main(int argc, char* argv[])
 	// ZORA: Tutorial requests making an ASCII art map to visualise the node map
 	// Create a vector of strings, with each string representing a row line of the map.
 	// "We can use a code such as 0 = solid wall, 1 =  navigable space, and set up anything from a simple test shape to a complex maze for pathfinding to take place in"
-
+	
+	vector<string> asciiMap;
 
 	// 12x8 grid of chars denoting whether or not a cell is navigable (1) or impassable (0) /// Original map from tutorial
-	vector<string> asciiMap;
 	//asciiMap.push_back("000000000000");     // row 1
 	//asciiMap.push_back("010111011100");     // row 2
 	//asciiMap.push_back("010101110110");     // row 3
@@ -103,13 +103,14 @@ int main(int argc, char* argv[])
 	
 	map->Initialise(asciiMap, AIForGames::sizeOfCell);
 
-	// Set the starting node for the Dijkstra search equal to the Node* in column index 1, row index 1 (in the ascii map)
+	// Set the starting node for the A* search equal to the Node* in column index 1, row index 1 (in the ascii map)
 	Node* start = map->GetNode(1, 1);
-	// Set the target point (the end destination) equal to the Node* in column index 10, row index 2
+
+	////Set the target point (the end destination) equal to the Node* in column index 10, row index 2
 	//Node* end = map->GetNode(10, 2);
-	// Find the vector of nodes that constitute the Dijkstra path between (1, 1) and (10, 2)
-	//vector<Node*> nodeMapPath = map->DijkstraSearch(start, end);
-	//cout << "The Dijkstra path consists of " << nodeMapPath.size() << " nodes." << endl;
+	////Find the vector of nodes that constitute the A* path between (1, 1) and (10, 2)
+	//vector<Node*> nodeMapPath = map->AStarSearch(start, end);
+	//cout << "The A* path consists of " << nodeMapPath.size() << " nodes." << endl;
 
 	PathAgent agent;
 	agent.SetNode(start);
@@ -144,26 +145,31 @@ int main(int argc, char* argv[])
 		if (IsMouseButtonPressed(0)) {
 			Vector2 mousePos = GetMousePosition();
 			Node* end = map->GetClosestNode(glm::vec2(mousePos.x, mousePos.y));
+			map->ClearMapVals();
 			// On mouse click, set the agent's current node = the nearest node to its current world position
+			agent.SetAgentCurrentNode(map->GetClosestNode(glm::vec2(agent.GetAgentPosition().x, agent.GetAgentPosition().y)));
 			agent.GoToNode(end);
 		}
+
 
 		//// ----- This code is just for demonstrating moving the path's origin -----
 		//// If left mouse is clicked...
 		//if (IsMouseButtonPressed(0)) {
+		//	map->ClearMapVals();
 		//	Vector2 mousePos = GetMousePosition();
 		//	start = map->GetClosestNode(glm::vec2(mousePos.x, mousePos.y));
-		//	nodeMapPath = map->DijkstraSearch(start, end);
-		//	nodeMapPath = NodeMap::DijkstraSearch(start, end);
+		//	nodeMapPath = map->AStarSearch(start, end);
+		//	nodeMapPath = NodeMap::AStarSearch(start, end);
 		//}
 
 		//// ----- This code is just for demonstrating moving the path's destination -----
 		////// If right mouse is clicked...
 		//if (IsMouseButtonPressed(1)) {
+		//	map->ClearMapVals();
 		//	Vector2 mousePos = GetMousePosition();
 		//	end = map->GetClosestNode(glm::vec2(mousePos.x, mousePos.y));
-		//	nodeMapPath = map->DijkstraSearch(start, end);
-		//	nodeMapPath = NodeMap::DijkstraSearch(start, end);
+		//	nodeMapPath = map->AStarSearch(start, end);
+		//	nodeMapPath = NodeMap::AStarSearch(start, end);
 		//}
 
 		

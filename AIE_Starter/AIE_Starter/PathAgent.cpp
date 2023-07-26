@@ -36,16 +36,11 @@ namespace AIForGames {
 
 		int xDistance = 0;
 		int yDistance = 0;
-
-		// If there's only one node traversal, then add the origin node to the queue so that the agent will traverse back to it in the circumstance where it has left its origin, and then needs to navigate back to it (otherwise its node destination and origin will be identical and it will just stop wherever it currently is, or produce other, weirder behaviour)
-		if (m_path.size() == 1) {
-			// I think there's a problem here about jumping over walls when there's no path *****************************************************
-			m_path.insert(m_path.begin(), m_currentNode);
-		}
 		
 		xDistance = m_path[m_currentIndex + 1]->position.x - m_position.x;
 		yDistance = m_path[m_currentIndex + 1]->position.y - m_position.y;
-
+		
+		
 		glm::vec2 directionVector = {xDistance, yDistance};
 
 		// 2.a.ii: Calculate the distance (the vector's magnitude [square root of its coordinates squared])
