@@ -31,8 +31,9 @@ namespace AIForGames
         // Node variables 
         glm::vec2 position;
         std::vector<Edge> connections;
-        int gScore;
-        int hScore;
+        int gScore;     // Distance from the start
+        int hScore;     // Heuristic distance remaining to the destination
+        int fScore;     // Distance from the start + heuristic distance remaining to the destination
         Node* previousNode;
 
         // Default constructor

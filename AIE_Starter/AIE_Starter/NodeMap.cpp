@@ -16,33 +16,36 @@ namespace AIForGames {
 
 		while (counter != 0) {
 			for (Node* n : path) {
+#ifndef NDEBUG
 				cout << "Node [" << counter << "]: g score [" << n->gScore << "]." << endl;
+#endif
 				counter--;
-				//cout << "Node [" << counter << "] has [" << n->connections.size() << "] connections." << endl;
 			};
 		};
 	};
-
 
 	// Default constructor
 	NodeMap::NodeMap() {};
 
 	// Destructor
 	NodeMap::~NodeMap() {
+		// Iterate through the dynamically-sized array and delete each element in turn, setting it to a nullptr
 		for (int i = 0; i < (m_width * m_height); i++) {
 			delete m_nodes[i];
 			m_nodes[i] = nullptr;
 		}
 
+		// Delete the array object itself and set it to a nullptr
 		delete[] m_nodes;
 		m_nodes = nullptr;
 	};
 
 	void NodeMap::GetMapSize() {
+		// Print out the memory allocation required for one map element
 		std::cout << sizeof(m_nodes[0]) << std::endl;
 	};
 
-
+	// A function for returning the node which is closest to the mouse at the time of mouse button press
 	Node* NodeMap::GetClosestNode(glm::vec2 worldPos) {
 		int i = (int)(worldPos.x / m_cellSize);
 		if (i < 0 || i > m_width) return nullptr;
@@ -53,9 +56,8 @@ namespace AIForGames {
 		return GetNode(i, j);
 	}
 	
-
+	// A function to return the node which is x nodes from the left and on the yth row
 	Node* NodeMap::GetNode(int x, int y) {
-		// Return the node which is x nodes from the left and on the yth row
 		return m_nodes[x + m_width * y];
 	};
 
@@ -82,6 +84,7 @@ namespace AIForGames {
 		}
 
 		// Debugging / informational printouts to the screen
+#ifndef NDEBUG
 		string noPath = "No path from start to end";
 		string numberOfNodes = to_string(path.size());
 		string numNodes = "Number of nodes in the path: " + numberOfNodes;
@@ -95,8 +98,7 @@ namespace AIForGames {
 			const char* nNodes = numNodes.c_str();
 			DrawText(nNodes, 50, 420, 15, WHITE);
 		}	
-
-
+#endif
 	};
 
 	void NodeMap::Draw() {
@@ -132,11 +134,13 @@ namespace AIForGames {
 							cellColour);				// colour
 
 						// Debug print the map coordinates of each empty cell (too visually busy with pathed cells included)
+#ifndef NDEBUG
 						string coordinateX = to_string(x);
 						string coordinateY = to_string(y);
 						string coordsYX = "(" + coordinateY + ", " + coordinateX + ")";
 						const char* coords = coordsYX.c_str();
 						DrawText(coords, (x * m_cellSize) + 2, (y * m_cellSize) + 2, 1, WHITE);
+#endif
 					}
 
 					// When there is a Node, we want to draw lines between it and its connections on its edges.
@@ -153,6 +157,7 @@ namespace AIForGames {
 								(int)other->position.y,		// line end y
 								lineColour);				// colour
 
+#ifndef NDEBUG
 							int cellGCost = node->gScore;
 							string cellCost = to_string(cellGCost);
 							string cellString = "g: (" + cellCost + ")";
@@ -164,6 +169,7 @@ namespace AIForGames {
 							string hCost = "h: (" + stringHCost + ")";
 							const char* hCostChar = hCost.c_str();
 							DrawText(hCostChar, (x * m_cellSize) + 2, (y * m_cellSize) + 30, 1, WHITE);
+#endif
 						};
 					};
 				};
@@ -194,7 +200,10 @@ namespace AIForGames {
 			std::string& line = asciiMap[y];
 			// report to the user that you have a mis-matched string length if some row is of a different length than index 0
 			if (line.size() != m_width) {
+#ifndef NDEBUG
 				std::cout << "Mismatched line #" << y << " in ASCII map (" << line.size() << " instead of " << m_width << ")" << std::endl;
+				// Could add other proper error troubleshooting to add graceful failure but can't be bothered for the tutorial :)
+#endif
 			}
 
 			for (int x = 0; x < m_width; x++) {
@@ -269,12 +278,13 @@ namespace AIForGames {
 		// A lambda expression to be used as a function object for returning whether one node has a larger g score than another, inside a sort algorithm. I'm not searching by a property, always run the body of the expression based on the node's respective g scores.
 		auto lambdaNodeSort = [](Node* const& lhs, Node* const& rhs) -> bool {
 			// Return true if the left hand side integer is less than the right hand side integer, otherwise return false
-			return lhs->gScore < rhs->gScore;
+			return lhs->fScore < rhs->fScore;
 		};
 
 
 		//	DIJKSTRA SEARCH FUNCTION -------------------------------------------------------------------------------
 		//	1	----------------------------------------------------------------------------------------------------
+#ifndef NDEBUG
 		cout << "Step 1: Check the starting and ending node positions for existence on the map." << endl;
 		startNode == nullptr || endNode == nullptr												// If this is true
 			? cout << "Error - start or end, or both, do not exist." << endl	// Do this (add functionality)
@@ -283,20 +293,27 @@ namespace AIForGames {
 		startNode == endNode																		// If this is true
 			? cout << "Start and end are same - path is complete." << endl		// Do this (add functionality)
 			: cout << "Start node and end node are different. Continue.\n" << endl;	// Else do this (add functionality)
+		// I know this doesn't actually do anything with errors - I would implement something if it was core to the tutorial, but not this time
 
 
 		//	2	----------------------------------------------------------------------------------------------------
 		cout << "Step 2: Initialise the starting node." << endl;
+#endif
+
 		// Set distance from the starting node = 0.
 		startNode->gScore = 0;
+#ifndef NDEBUG
 		cout << "Distance from starting node to itself: " << startNode->gScore << "." << endl;
 		// Set no previous node for the origin.
+#endif
 		startNode->previousNode = nullptr;
+#ifndef NDEBUG
 		cout << "Origin has no previous node.\n" << endl;
 
 
 		//	3	----------------------------------------------------------------------------------------------------
 		cout << "Step 3: Add the starting node to the list of open nodes.\n" << endl;
+#endif
 		// Create a collection (here the list is a vector) of nodes/vertices not yet processed
 		vector<Node*> openList;
 
@@ -312,8 +329,9 @@ namespace AIForGames {
 		//	4	----------------------------------------------------------------------------------------------------
 		// debug counter
 		int counter = 0;
-
+#ifndef NDEBUG
 		std::cout << "Step 4: While the open list is not empty, run the Dijkstra search for the end node.\nBegin while loop\t----------" << endl;
+#endif
 		while (openList.size() != 0) {
 			//	4.1	----------------------------------------------------------------------------------------------------
 			/* Sort the open list so that the smallest g value (Dijkstra) or f value (A*) is at the front.
@@ -322,21 +340,29 @@ namespace AIForGames {
 				openList.begin(),
 				openList.end(),
 				lambdaNodeSort);
+#ifndef NDEBUG
 			cout << "Step 4.1: The open list has been sorted by ascending node g score." << endl;
 			cout << "Step 4.1.1: Begin processing node " << counter << "." << endl;
+#endif
 			counter++;
 
 			//	4.2	----------------------------------------------------------------------------------------------------
 			currentNode = *openList.begin();
+#ifndef NDEBUG
 			cout << "Step 4.2: First node in the open list (g score of " << currentNode->gScore << ") has been set as the current node." << endl;
 
 			//	4.3	----------------------------------------------------------------------------------------------------
 			cout << "Step 4.3: Check if the end node has been reached." << endl;
+#endif
 			if (currentNode == endNode) {
+#ifndef NDEBUG
 				std::cout << "Step 4.3a: The end node has been reached - while loop will end.\n" << endl;
+#endif
 				break;
 			}
+#ifndef NDEBUG
 			cout << "Step 4.3b: The end node has not been reached - while loop will continue." << endl;
+#endif
 
 			//	4.4	----------------------------------------------------------------------------------------------------
 			// 4.4.1: Create an iterator to find the location of the current node in the open list
@@ -346,20 +372,26 @@ namespace AIForGames {
 			index_00 = distance(openList.begin(), itr_00);
 			// Erase the found node from the list
 			openList.erase(openList.begin() + index_00);
+#ifndef NDEBUG
 			cout << "Step 4.4: The current node has been removed from the open list." << endl;
+#endif
 
 			//	4.5	----------------------------------------------------------------------------------------------------
 			closedList.push_back(currentNode);
+#ifndef NDEBUG
 			cout << "Step 4.5: The current node has been added to the closed list (it has finished being processed)." << endl;
 
 			//	4.6	----------------------------------------------------------------------------------------------------
 			cout << "Step 4.6: Determine whether the target Nodes of the current Node's Edges have already been processed or not." << endl;
+#endif
 			// For all edges of the currentNode...
 			for (Edge targetEdge : currentNode->connections) {
 				// 4.6.1: Create iterators to look at the target node of the edge and see whether it is in the closed list or open list
 				vector<Node*>::iterator itr_01 = find(closedList.begin(), closedList.end(), targetEdge.targetNode);
 				vector<Node*>::iterator itr_02 = find(openList.begin(), openList.end(), targetEdge.targetNode);
+#ifndef NDEBUG
 				cout << "Step 4.6.1: An Edge was found and its target Node has been searched for in the closed and open lists." << endl;
+#endif
 
 				// Save the position in the closed and open lists where this edge's target node was found
 				int index_01 = 0;
@@ -369,56 +401,71 @@ namespace AIForGames {
 
 				// 4.6.2: If the iterator did not find the target node in the closed list (if it reached the end of the closed list) Then the target node of this edge needs to be processed.
 				if (itr_01 == closedList.end()) {
+#ifndef NDEBUG
 					cout << "Step 4.6.2: This Edge was not found in the closed list (its processing has started but not yet finished)." << endl;
-
+#endif
 					// 4.6.2.1: Calculate a hypothetical g score (for comparison against the pre-existing g score)
-					int calcdG = currentNode->gScore + targetEdge.cost;
+					int calcdG = currentNode->gScore + targetEdge.cost; 
+#ifndef NDEBUG
 					cout << "Step 4.6.2.1: This Edge has a target Node with a calculated g score of [" << calcdG << "]." << endl;
-
+#endif
 					// 4.6.2.2a: Then, if this node is not already in the open list...
 					if (itr_02 == openList.end()) {
+#ifndef NDEBUG
 						cout << "Step 4.6.2.2a: The target Node of this Edge was not found in the open list (its processing has not yet started)." << endl;
-
+#endif
 						// Make the g score of the target node equal to the g score of the current node plus the cost of this edge
 						targetEdge.targetNode->gScore = calcdG;
+#ifndef NDEBUG
 						cout
 							<< "Step 4.6.2.2a(i): The target Node of this Edge has had its g score set to ["
 							<< targetEdge.targetNode->gScore
 							<< "]." << endl;
-
+#endif
 						// Make the current node be the 'previous' node of the target
 						targetEdge.targetNode->previousNode = currentNode;
+#ifndef NDEBUG
 						cout << "Step 4.6.2.2a(ii): The current Node is now the parent of the target Node on this Edge." << endl;
-
+#endif
 						// Add to the open list for processing
 						openList.push_back(targetEdge.targetNode);
+#ifndef NDEBUG
 						cout << "Step 4.6.2.2a(iii): The target Node of this Edge has been added to the open list (its processing has started).\n" << endl;
+#endif
 					}
 
 					// 4.6.2.2b: Otherwise if this node is already in the openList AND if its calculated g score is lower than its existing g score...
 					else if (calcdG < targetEdge.targetNode->gScore) {
+#ifndef NDEBUG
 						cout << "Step 4.6.2.2b: This edge was found in the open list (its processing has started but not yet finished) and its g score through this Edge is lower than its existing g score through some other path (this path is shorter)." << endl;
+#endif
 
 						targetEdge.targetNode->gScore = calcdG;
+#ifndef NDEBUG
 						cout << "Step 4.6.2.2b(i): The target Node of this Edge has had its g score set to ["
 							<< targetEdge.targetNode->gScore
 							<< "]." << endl;
-
+#endif
 						targetEdge.targetNode->previousNode = currentNode;
+#ifndef NDEBUG
 						cout << "Step 4.6.2.2b(ii): The current Node is now the parent of the target Node on this Edge.\n" << endl;
+#endif
 					};
 				};
 			};
 		};
 
 		
-
+#ifndef NDEBUG
 		std::cout << "End while loop\t--------\n" << endl;
 
 		//	5	----------------------------------------------------------------------------------------------------
 		cout << "Step 5: Create a path in reverse from the end node to the start node." << endl;
+#endif
 		vector<Node*> path;
+#ifndef NDEBUG
 		cout << "A vector of Nodes (the 'path') has been created." << endl;
+#endif
 
 		currentNode = endNode;
 		while (currentNode != nullptr) {
