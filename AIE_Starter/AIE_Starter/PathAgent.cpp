@@ -25,7 +25,6 @@ namespace AIForGames {
 	void PathAgent::Update(float deltaTime) {
 		// 1: If the path is empty, Don't go anywhere, and empty the path so future updates do nothing.
 		if (m_path.empty()) {
-			m_path.clear();
 			return;
 		}
 
@@ -40,6 +39,7 @@ namespace AIForGames {
 
 		// If there's only one node traversal, then add the origin node to the queue so that the agent will traverse back to it in the circumstance where it has left its origin, and then needs to navigate back to it (otherwise its node destination and origin will be identical and it will just stop wherever it currently is, or produce other, weirder behaviour)
 		if (m_path.size() == 1) {
+			// I think there's a problem here about jumping over walls when there's no path *****************************************************
 			m_path.insert(m_path.begin(), m_currentNode);
 		}
 		
@@ -122,7 +122,7 @@ namespace AIForGames {
 
 	void PathAgent::GoToNode(Node* node) {
 		// Call the pathfinding function to make and store a path from the current node to the given destination
-		m_path = NodeMap::DijkstraSearch(m_currentNode, node);
+		m_path = NodeMap::AStarSearch(m_currentNode, node);
 		// When we recalculate the path our next node is always the first one along the path, so we reset currentIndex to 0.
 		m_currentIndex = 0;
 	};

@@ -162,13 +162,19 @@ namespace AIForGames {
 							string cellCost = to_string(cellGCost);
 							string cellString = "g: (" + cellCost + ")";
 							const char* gCost = cellString.c_str();
-							DrawText(gCost, (x * m_cellSize) + 2, (y * m_cellSize) + 15, 1, WHITE);
-
+							DrawText(gCost, (x * m_cellSize) + 2, (y * m_cellSize) + 2, 1, WHITE);
+							
 							int cellHCost = node->hScore;
 							string stringHCost = to_string(cellHCost);
 							string hCost = "h: (" + stringHCost + ")";
 							const char* hCostChar = hCost.c_str();
-							DrawText(hCostChar, (x * m_cellSize) + 2, (y * m_cellSize) + 30, 1, WHITE);
+							DrawText(hCostChar, (x * m_cellSize) + 2, (y * m_cellSize) + 17, 1, WHITE);
+
+							int cellFCost = node->fScore;
+							string stringFCost = to_string(cellFCost);
+							string fCost = "f: (" + stringFCost + ")";
+							const char* fCostChar = fCost.c_str();
+							DrawText(fCostChar, (x * m_cellSize) + 2, (y * m_cellSize) + 32, 1, WHITE);
 #endif
 						};
 					};
@@ -272,17 +278,35 @@ namespace AIForGames {
 		};
 	};
 
+	// A function to calculate the straight-line distance between one node and the end node
+	int NodeMap::Heuristic(Node* a, Node* b) {
+		if (a == nullptr || b == nullptr) {
+			return 0;
+		}
+
+		else {
+			int xDist = (b->position.x - a->position.x);
+			int yDist = (b->position.y - a->position.y);
+			int heuristic = sqrt((xDist * xDist) + (yDist * yDist));
+
+			// Divide the distance by the size of a cell to create an h score of approximately 1 per node
+			heuristic /= AIForGames::sizeOfCell;
+
+			return heuristic;
+		}
+	};
+
 
 	// This is a function for calculating a series of Node Pointers that go from a start node to an end node.
-	vector<Node*> NodeMap::DijkstraSearch(Node* startNode, Node* endNode) {
-		// A lambda expression to be used as a function object for returning whether one node has a larger g score than another, inside a sort algorithm. I'm not searching by a property, always run the body of the expression based on the node's respective g scores.
+	vector<Node*> NodeMap::AStarSearch(Node* startNode, Node* endNode) {
+		// A lambda expression to be used as a function object for returning whether one node has a larger f score than another, inside a sort algorithm. I'm not searching by a property, always run the body of the expression based on the node's respective g scores.
 		auto lambdaNodeSort = [](Node* const& lhs, Node* const& rhs) -> bool {
 			// Return true if the left hand side integer is less than the right hand side integer, otherwise return false
 			return lhs->fScore < rhs->fScore;
 		};
 
 
-		//	DIJKSTRA SEARCH FUNCTION -------------------------------------------------------------------------------
+		//	A* SEARCH FUNCTION -------------------------------------------------------------------------------
 		//	1	----------------------------------------------------------------------------------------------------
 #ifndef NDEBUG
 		cout << "Step 1: Check the starting and ending node positions for existence on the map." << endl;
@@ -341,7 +365,7 @@ namespace AIForGames {
 				openList.end(),
 				lambdaNodeSort);
 #ifndef NDEBUG
-			cout << "Step 4.1: The open list has been sorted by ascending node g score." << endl;
+			cout << "Step 4.1: The open list has been sorted by ascending node f score." << endl;
 			cout << "Step 4.1.1: Begin processing node " << counter << "." << endl;
 #endif
 			counter++;
@@ -349,7 +373,7 @@ namespace AIForGames {
 			//	4.2	----------------------------------------------------------------------------------------------------
 			currentNode = *openList.begin();
 #ifndef NDEBUG
-			cout << "Step 4.2: First node in the open list (g score of " << currentNode->gScore << ") has been set as the current node." << endl;
+			cout << "Step 4.2: First node in the open list (f score of " << currentNode->gScore << ") has been set as the current node." << endl;
 
 			//	4.3	----------------------------------------------------------------------------------------------------
 			cout << "Step 4.3: Check if the end node has been reached." << endl;
@@ -404,10 +428,17 @@ namespace AIForGames {
 #ifndef NDEBUG
 					cout << "Step 4.6.2: This Edge was not found in the closed list (its processing has started but not yet finished)." << endl;
 #endif
-					// 4.6.2.1: Calculate a hypothetical g score (for comparison against the pre-existing g score)
+					// 4.6.2.1a: Calculate a hypothetical g score (for comparison against the pre-existing g score)
 					int calcdG = currentNode->gScore + targetEdge.cost; 
+
+					// 4.6.2.1b: Calculate a heuristic score between this node and the end
+					int calcdH = Heuristic(targetEdge.targetNode, endNode);
+
+					// 4.6.2.1c: Calculate a total score
+					int calcdF = calcdG + calcdH;
+
 #ifndef NDEBUG
-					cout << "Step 4.6.2.1: This Edge has a target Node with a calculated g score of [" << calcdG << "]." << endl;
+					cout << "Step 4.6.2.1a-c: This Edge has a target Node with a calculated g score of [" << calcdG << "], a calculated h score of [" << calcdH << "], and a calculated f score of [" << calcdF << "]." << endl;
 #endif
 					// 4.6.2.2a: Then, if this node is not already in the open list...
 					if (itr_02 == openList.end()) {
@@ -416,11 +447,18 @@ namespace AIForGames {
 #endif
 						// Make the g score of the target node equal to the g score of the current node plus the cost of this edge
 						targetEdge.targetNode->gScore = calcdG;
+
+						//targetEdge.targetNode->hScore = calcdH;
+
+						// Make the f score of the target node equal to g + h
+						targetEdge.targetNode->fScore = calcdF;
+
 #ifndef NDEBUG
 						cout
 							<< "Step 4.6.2.2a(i): The target Node of this Edge has had its g score set to ["
 							<< targetEdge.targetNode->gScore
-							<< "]." << endl;
+							<< "], its h score set to [" << targetEdge.targetNode->hScore 
+							<< "], and its f score set to [" << targetEdge.targetNode->fScore << "]." << endl;
 #endif
 						// Make the current node be the 'previous' node of the target
 						targetEdge.targetNode->previousNode = currentNode;
@@ -434,17 +472,21 @@ namespace AIForGames {
 #endif
 					}
 
-					// 4.6.2.2b: Otherwise if this node is already in the openList AND if its calculated g score is lower than its existing g score...
-					else if (calcdG < targetEdge.targetNode->gScore) {
+					// 4.6.2.2b: Otherwise if this node is already in the openList AND if its calculated f score is lower than its existing f score...
+					else if (calcdF < targetEdge.targetNode->fScore) {
 #ifndef NDEBUG
-						cout << "Step 4.6.2.2b: This edge was found in the open list (its processing has started but not yet finished) and its g score through this Edge is lower than its existing g score through some other path (this path is shorter)." << endl;
+						cout << "Step 4.6.2.2b: This edge was found in the open list (its processing has started but not yet finished) and its f score through this Edge is lower than its existing f score through some other path (this path is shorter)." << endl;
 #endif
-
+						// Make the g score of the target node equal to the g score of the current node plus the cost of this edge
 						targetEdge.targetNode->gScore = calcdG;
+
+						//targetEdge.targetNode->hScore = calcdH;
+
+						// Make the f score of the target node equal to g + h
+						targetEdge.targetNode->fScore = calcdF;
 #ifndef NDEBUG
-						cout << "Step 4.6.2.2b(i): The target Node of this Edge has had its g score set to ["
-							<< targetEdge.targetNode->gScore
-							<< "]." << endl;
+						cout << "Step 4.6.2.2b(i): The target Node of this Edge has had its g score set to [" << targetEdge.targetNode->gScore
+							<< "] and its f score set to [" << targetEdge.targetNode->fScore << "]." << endl;
 #endif
 						targetEdge.targetNode->previousNode = currentNode;
 #ifndef NDEBUG

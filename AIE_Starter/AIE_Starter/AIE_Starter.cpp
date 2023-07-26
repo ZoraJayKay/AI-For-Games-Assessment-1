@@ -52,8 +52,8 @@ int main(int argc, char* argv[])
 {
 	// Initialization
 	//--------------------------------------------------------------------------------------
-	int screenWidth = 800;
-	int screenHeight = 450;
+	int screenWidth = 1200;
+	int screenHeight = 700;
 
 	InitWindow(screenWidth, screenHeight, "Zora Jane Kerr: Artificial Intelligence for Games (Assessment 2 - Other Pathfinding Algorithms [Dijkstra's algorithm]) AIE, 2023 (student year 1)");
 
@@ -76,15 +76,27 @@ int main(int argc, char* argv[])
 	//asciiMap.push_back("011111111110");     // row 7
 	//asciiMap.push_back("000000000000");     // row 8
 
-	// 14x8 grid of chars denoting whether or not a cell is navigable (1) or impassable (0) /// ALTERNATE MAP
-	asciiMap.push_back("00000000000000");     // row 1
-	asciiMap.push_back("01011101110000");     // row 2
-	asciiMap.push_back("01010111011110");     // row 3
-	asciiMap.push_back("01010000000010");     // row 4
-	asciiMap.push_back("01011111111010");     // row 5
-	asciiMap.push_back("01000000100010");     // row 6
-	asciiMap.push_back("01111111111110");     // row 7
-	asciiMap.push_back("00000000000000");     // row 8
+	//// 14x8 grid of chars denoting whether or not a cell is navigable (1) or impassable (0) /// ALTERNATE MAP
+	//asciiMap.push_back("00000000000000");     // row 1
+	//asciiMap.push_back("01011101110000");     // row 2
+	//asciiMap.push_back("01010111011110");     // row 3
+	//asciiMap.push_back("01010000000010");     // row 4
+	//asciiMap.push_back("01011111111010");     // row 5
+	//asciiMap.push_back("01000000100010");     // row 6
+	//asciiMap.push_back("01111111111110");     // row 7
+	//asciiMap.push_back("00000000000000");     // row 8
+
+	// 20x10 grid of chars denoting whether or not a cell is navigable (1) or impassable (0) /// ALTERNATE MAP
+	asciiMap.push_back("00000000000000000000");     // row 1
+	asciiMap.push_back("01011101110000111000");     // row 2
+	asciiMap.push_back("01010111011111101100");     // row 3
+	asciiMap.push_back("01010000000010100110");     // row 4
+	asciiMap.push_back("01011111111011110010");     // row 5
+	asciiMap.push_back("01000000100010011110");     // row 6
+	asciiMap.push_back("01111100001110010010");     // row 7
+	asciiMap.push_back("00000111111000010000");     // row 8
+	asciiMap.push_back("01110101001111111110");     // row 9
+	asciiMap.push_back("00000000000000000000");     // row 10
 
 	// Create a NodeMap class with a width, height and cell size, ie the spacing in pixels between consecutive squares in the grid. We’ll give it a function to initialize its data from the ASCII map declared above.
 	NodeMap* map = new NodeMap();

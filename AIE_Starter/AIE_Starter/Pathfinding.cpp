@@ -11,6 +11,7 @@ namespace AIForGames {
 		previousNode = nullptr;
 		gScore = 0;
 		hScore = 0;
+		fScore = 0;
 	};
 
 	// Default destructor
