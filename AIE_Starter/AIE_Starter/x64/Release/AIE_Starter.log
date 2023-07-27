@@ -1,30 +1,10 @@
 ﻿  AIE_Starter.cpp
-F:\Programming files\AIE\Diploma\AI\AI-For-Games-Assessment-1\AIE_Starter\packages\raylib.4.0.0.7\build\native\include\raygui.h(3273,60): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-F:\Programming files\AIE\Diploma\AI\AI-For-Games-Assessment-1\AIE_Starter\packages\raylib.4.0.0.7\build\native\include\raygui.h(3274,60): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-F:\Programming files\AIE\Diploma\AI\AI-For-Games-Assessment-1\AIE_Starter\AIE_Starter\AIE_Starter.cpp(42,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
-  NodeMap.cpp
-F:\Programming files\AIE\Diploma\AI\AI-For-Games-Assessment-1\AIE_Starter\AIE_Starter\NodeMap.cpp(15,28): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-F:\Programming files\AIE\Diploma\AI\AI-For-Games-Assessment-1\AIE_Starter\AIE_Starter\NodeMap.cpp(204,16): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-F:\Programming files\AIE\Diploma\AI\AI-For-Games-Assessment-1\AIE_Starter\AIE_Starter\NodeMap.cpp(211,29): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
-F:\Programming files\AIE\Diploma\AI\AI-For-Games-Assessment-1\AIE_Starter\AIE_Starter\NodeMap.cpp(213,31): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
-F:\Programming files\AIE\Diploma\AI\AI-For-Games-Assessment-1\AIE_Starter\AIE_Starter\NodeMap.cpp(307,14): warning C4244: 'initializing': conversion from 'T' to 'int', possible loss of data
-          with
-          [
-              T=float
-          ]
-F:\Programming files\AIE\Diploma\AI\AI-For-Games-Assessment-1\AIE_Starter\AIE_Starter\NodeMap.cpp(308,14): warning C4244: 'initializing': conversion from 'T' to 'int', possible loss of data
-          with
-          [
-              T=float
-          ]
-F:\Programming files\AIE\Diploma\AI\AI-For-Games-Assessment-1\AIE_Starter\AIE_Starter\NodeMap.cpp(309,18): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
-F:\Programming files\AIE\Diploma\AI\AI-For-Games-Assessment-1\AIE_Starter\AIE_Starter\NodeMap.cpp(429,23): warning C4244: '=': conversion from '__int64' to 'int', possible loss of data
-F:\Programming files\AIE\Diploma\AI\AI-For-Games-Assessment-1\AIE_Starter\AIE_Starter\NodeMap.cpp(455,24): warning C4244: '=': conversion from '__int64' to 'int', possible loss of data
-F:\Programming files\AIE\Diploma\AI\AI-For-Games-Assessment-1\AIE_Starter\AIE_Starter\NodeMap.cpp(457,24): warning C4244: '=': conversion from '__int64' to 'int', possible loss of data
-F:\Programming files\AIE\Diploma\AI\AI-For-Games-Assessment-1\AIE_Starter\AIE_Starter\NodeMap.cpp(465,17): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+C:\Users\s220780\Desktop\AI\AI-For-Games-Assessment-1\AIE_Starter\packages\raylib.4.0.0.7\build\native\include\raygui.h(3273,60): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\s220780\Desktop\AI\AI-For-Games-Assessment-1\AIE_Starter\packages\raylib.4.0.0.7\build\native\include\raygui.h(3274,60): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\s220780\Desktop\AI\AI-For-Games-Assessment-1\AIE_Starter\AIE_Starter\AIE_Starter.cpp(42,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
   Generating code
-  3 of 374 functions ( 0.8%) were compiled, the rest were copied from previous compilation.
+  1 of 404 functions ( 0.2%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
-    1 functions had inline decision re-evaluated but remain unchanged
+    0 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
-  AIE_Starter.vcxproj -> F:\Programming files\AIE\Diploma\AI\AI-For-Games-Assessment-1\AIE_Starter\x64\Release\AIE_Starter.exe
+  AIE_Starter.vcxproj -> C:\Users\s220780\Desktop\AI\AI-For-Games-Assessment-1\AIE_Starter\x64\Release\AIE_Starter.exe

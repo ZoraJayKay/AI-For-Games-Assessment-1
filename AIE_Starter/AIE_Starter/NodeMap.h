@@ -1,6 +1,7 @@
 #pragma once
 #include "Pathfinding.h"
 #include <string>
+#include "raylib.h"
 
 
 // Use the same namespace as the one set up by the tutorial
@@ -40,18 +41,24 @@ namespace AIForGames {
 		Node* GetNode(int x, int y);
 
 		// A function for drawing the best path calculated by a Dijkstra search
-		void DrawPath(std::vector<Node*> dijkstraPath);
+		void DrawPath(std::vector<Node*> path, Color colour);
 
 		// A function to draw the map to the screen
 		void Draw();
 
+		// This is a global namespace function for the AIForGames namespace which will print the node path from back to front for a completed A* search.
 		void Print(std::vector<Node*> path);
 
+		// A function to set all pathfinding values to nil imbetween paths, so that only the nodes checked in the most recent path are shown on debugging
 		void ClearMapVals();
 
+		// A function to calculate the straight-line distance between one node and the end node
 		static int Heuristic(Node* a, Node* b);
 
+		// This is a function for calculating a series of Node Pointers that go from a start node to an end node.
 		static std::vector<Node*> AStarSearch(Node* startNode, Node* endNode);
 
+		// A function for randomly selecting a node from the node map
+		Node* GetRandomNode();
 	};
 }

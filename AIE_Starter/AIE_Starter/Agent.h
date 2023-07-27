@@ -8,6 +8,8 @@
 #define RAYGUI_SUPPORT_ICONS
 
 namespace AIForGames {
+	class NodeMap;
+
 	class Agent
 	{
 	public:
@@ -19,6 +21,10 @@ namespace AIForGames {
 		void Draw();
 		void GoTo(glm::vec2 point);
 		void SetNode(Node* node);
+		void SetAgent(PathAgent agent);
+		std::vector<Node*> GetPath();
+		bool PathComplete();
+		NodeMap* GetMap();
 
 	private:
 		PathAgent m_pathAgent;

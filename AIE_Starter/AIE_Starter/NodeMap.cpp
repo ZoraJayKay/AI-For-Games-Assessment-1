@@ -1,5 +1,5 @@
 #include "NodeMap.h"
-#include "raylib.h"
+//#include "raylib.h"
 #include <iostream>
 #include <vector>
 #include <algorithm>
@@ -62,13 +62,9 @@ namespace AIForGames {
 	};
 
 	// A function for drawing the best path calculated by a A* search
-	void NodeMap::DrawPath(std::vector<Node*> path) {
+	void NodeMap::DrawPath(std::vector<Node*> path, Color colour) {
 		// A Raylib color object for the shortest path through the ascii maze edge objects (blue)
-		Color lineColour;
-		lineColour.a = 255;
-		lineColour.r = 0;
-		lineColour.g = 0;
-		lineColour.b = 255;
+		Color passedInColour = colour;
 
 		// For every node with a non-null 'previous' pointer, draw a pathing line between itself and the previous node
 		for (Node* node : path) {
@@ -79,7 +75,7 @@ namespace AIForGames {
 					(int)other->position.y,
 					(int)node->position.x,
 					(int)node->position.y,
-					lineColour);
+					passedInColour);
 			}			
 		}
 
@@ -328,16 +324,30 @@ namespace AIForGames {
 		}
 	};
 
+	// A function for randomly selecting a node from the node map
+	Node* NodeMap::GetRandomNode() {
+		// Start the random node as though it is returning an unnavigable node
+		Node* node = nullptr;
+		// Until the random node returns one that is navigable...
+		while (node == nullptr) {
+			// Get a random x from those available
+			int x = rand() % m_width;
+			// Get a random y from those available
+			int y = rand() % m_height;
+			node = GetNode(x, y);
+		}
+
+		// Return the navigable node that has been randomly selected
+		return node;
+	};
+
 	// This is a function for calculating a series of Node Pointers that go from a start node to an end node.
 	vector<Node*> NodeMap::AStarSearch(Node* startNode, Node* endNode) {
-		
-
 		// A lambda expression to be used as a function object for returning whether one node has a larger f score than another, inside a sort algorithm. I'm not searching by a property, always run the body of the expression based on the node's respective g scores.
 		auto lambdaNodeSort = [](Node* const& lhs, Node* const& rhs) -> bool {
 			// Return true if the left hand side integer is less than the right hand side integer, otherwise return false
 			return lhs->fScore < rhs->fScore;
 		};
-
 
 		//	A* SEARCH FUNCTION -------------------------------------------------------------------------------
 		//	1	----------------------------------------------------------------------------------------------------
@@ -380,7 +390,10 @@ namespace AIForGames {
 		// A pointer to a Node that is the current node being processed
 		Node* currentNode;
 
-		openList.push_back(startNode);
+		currentNode = startNode;
+
+		//openList.push_back(startNode);
+		openList.push_back(currentNode);
 
 
 		//	4	----------------------------------------------------------------------------------------------------
@@ -545,13 +558,18 @@ namespace AIForGames {
 			currentNode = currentNode->previousNode;
 		}
 
+		/*if (currentNode->previousNode != nullptr) {
+			currentNode->previousNode = nullptr;
+		}	*/	
+
 #ifndef NDEBUG
 		cout << "A vector of Nodes (the 'path') has been created. Size: [" << path.size() << "] nodes." << endl;
 #endif
 
 		// If there's only one node in the path then no path is possible; make the path null before returning it.
-		if (path.size() == 1) {
+		if (path.size() < 2) {
 			path.clear();
+			std::cout << "TRIGGERED THE THING" << std::endl;
 		}
 
 		return path;

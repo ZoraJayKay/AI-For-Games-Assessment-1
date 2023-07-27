@@ -147,6 +147,7 @@
     <ClCompile Include="PathAgent.cpp" />
     <ClCompile Include="Pathfinding.cpp" />
     <ClCompile Include="PriorityQueue.cpp" />
+    <ClCompile Include="WanderBehaviour.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -161,6 +162,7 @@
     <ClInclude Include="Pathfinding.h" />
     <ClInclude Include="PriorityQueue.h" />
     <ClInclude Include="resource.h" />
+    <ClInclude Include="WanderBehaviour.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="AIE_Starter.rc" />

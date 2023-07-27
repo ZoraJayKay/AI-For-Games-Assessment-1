@@ -2,7 +2,7 @@
 #include "Behaviour.h"
 
 namespace AIForGames {
-
+	
 	// A derived Behaviour class to activate on mouse click
 	class GoToPointBehaviour : public Behaviour
 	{
