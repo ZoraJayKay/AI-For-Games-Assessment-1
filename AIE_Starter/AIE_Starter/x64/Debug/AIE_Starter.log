@@ -1,4 +1,11 @@
-﻿  NodeMap.cpp
+﻿  Agent.cpp
+  AIE_Starter.cpp
+C:\Users\s220780\Desktop\AI\AI-For-Games-Assessment-1\AIE_Starter\packages\raylib.4.0.0.7\build\native\include\raygui.h(3273,60): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\s220780\Desktop\AI\AI-For-Games-Assessment-1\AIE_Starter\packages\raylib.4.0.0.7\build\native\include\raygui.h(3274,60): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\s220780\Desktop\AI\AI-For-Games-Assessment-1\AIE_Starter\AIE_Starter\AIE_Starter.cpp(42,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+  Behaviour.cpp
+  GoToPointBehaviour.cpp
+  NodeMap.cpp
 C:\Users\s220780\Desktop\AI\AI-For-Games-Assessment-1\AIE_Starter\AIE_Starter\NodeMap.cpp(15,28): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
 C:\Users\s220780\Desktop\AI\AI-For-Games-Assessment-1\AIE_Starter\AIE_Starter\NodeMap.cpp(90,48): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
 C:\Users\s220780\Desktop\AI\AI-For-Games-Assessment-1\AIE_Starter\AIE_Starter\NodeMap.cpp(95,48): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
@@ -31,4 +38,34 @@ C:\Users\s220780\Desktop\AI\AI-For-Games-Assessment-1\AIE_Starter\AIE_Starter\No
 C:\Users\s220780\Desktop\AI\AI-For-Games-Assessment-1\AIE_Starter\AIE_Starter\NodeMap.cpp(468,24): warning C4244: '=': conversion from '__int64' to 'int', possible loss of data
 C:\Users\s220780\Desktop\AI\AI-For-Games-Assessment-1\AIE_Starter\AIE_Starter\NodeMap.cpp(470,24): warning C4244: '=': conversion from '__int64' to 'int', possible loss of data
 C:\Users\s220780\Desktop\AI\AI-For-Games-Assessment-1\AIE_Starter\AIE_Starter\NodeMap.cpp(478,17): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-  AIE_Starter.vcxproj -> C:\Users\s220780\Desktop\AI\AI-For-Games-Assessment-1\AIE_Starter\x64\Debug\AIE_Starter.exe
+  PathAgent.cpp
+C:\Users\s220780\Desktop\AI\AI-For-Games-Assessment-1\AIE_Starter\AIE_Starter\PathAgent.cpp(23,13): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\s220780\Desktop\AI\AI-For-Games-Assessment-1\AIE_Starter\AIE_Starter\PathAgent.cpp(41,54): warning C4244: '=': conversion from 'T' to 'int', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Users\s220780\Desktop\AI\AI-For-Games-Assessment-1\AIE_Starter\AIE_Starter\PathAgent.cpp(42,54): warning C4244: '=': conversion from 'T' to 'int', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Users\s220780\Desktop\AI\AI-For-Games-Assessment-1\AIE_Starter\AIE_Starter\PathAgent.cpp(48,16): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+C:\Users\s220780\Desktop\AI\AI-For-Games-Assessment-1\AIE_Starter\AIE_Starter\PathAgent.cpp(59,21): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+C:\Users\s220780\Desktop\AI\AI-For-Games-Assessment-1\AIE_Starter\AIE_Starter\PathAgent.cpp(94,19): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+C:\Users\s220780\Desktop\AI\AI-For-Games-Assessment-1\AIE_Starter\AIE_Starter\PathAgent.cpp(97,56): warning C4244: '=': conversion from 'T' to 'int', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Users\s220780\Desktop\AI\AI-For-Games-Assessment-1\AIE_Starter\AIE_Starter\PathAgent.cpp(98,56): warning C4244: '=': conversion from 'T' to 'int', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Users\s220780\Desktop\AI\AI-For-Games-Assessment-1\AIE_Starter\AIE_Starter\PathAgent.cpp(104,20): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+  Pathfinding.cpp
+  PriorityQueue.cpp
+  WanderBehaviour.cpp
+  Generating Code...
+C:\Users\s220780\Desktop\AI\AI-For-Games-Assessment-1\AIE_Starter\AIE_Starter\Pathfinding.cpp : fatal  error C1090: PDB API call failed, error code '3': C:\Users\s220780\Desktop\AI\AI-For-Games-Assessment-1\AIE_Starter\AIE_Starter\x64\Debug\vc143.pdb

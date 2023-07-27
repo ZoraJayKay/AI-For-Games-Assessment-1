@@ -566,11 +566,15 @@ namespace AIForGames {
 		cout << "A vector of Nodes (the 'path') has been created. Size: [" << path.size() << "] nodes." << endl;
 #endif
 
-		// If there's only one node in the path then no path is possible; make the path null before returning it.
-		if (path.size() < 2) {
+		if (*path.begin() != startNode) {
 			path.clear();
-			std::cout << "TRIGGERED THE THING" << std::endl;
 		}
+
+		//// If there's only one node in the path then no path is possible; make the path null before returning it.
+		//if (path.size() < 2) {
+		//	path.clear();
+		//	std::cout << "TRIGGERED THE THING" << std::endl;
+		//}
 
 		return path;
 	};
