@@ -12,6 +12,7 @@ namespace AIForGames {
 		return m_path;
 	}
 
+	// A function for setting the physical location of the PathAgent
 	void PathAgent::SetNode(Node* node) {
 		m_currentNode = node;
 		m_position.x = node->position.x;
@@ -140,4 +141,9 @@ namespace AIForGames {
 	glm::vec2 PathAgent::GetAgentPosition() {
 		return m_position;
 	}
+
+	void PathAgent::SetAgentPosition(glm::vec2 pos) {
+		m_position.x = pos.x;
+		m_position.y = pos.y;
+	};
 }

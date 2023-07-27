@@ -24,6 +24,7 @@ namespace AIForGames {
 		void GoToNode(Node* node);
 		void Draw();
 		glm::vec2 GetAgentPosition();
+		void SetAgentPosition(glm::vec2 pos);
 		void SetAgentCurrentNode(Node* node);
 	};
 }

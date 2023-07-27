@@ -139,7 +139,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Agent.cpp" />
     <ClCompile Include="AIE_Starter.cpp" />
+    <ClCompile Include="Behaviour.cpp" />
+    <ClCompile Include="GoToPointBehaviour.cpp" />
     <ClCompile Include="NodeMap.cpp" />
     <ClCompile Include="PathAgent.cpp" />
     <ClCompile Include="Pathfinding.cpp" />
@@ -149,6 +152,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Agent.h" />
+    <ClInclude Include="Behaviour.h" />
+    <ClInclude Include="GoToPointBehaviour.h" />
     <ClInclude Include="memory.h" />
     <ClInclude Include="NodeMap.h" />
     <ClInclude Include="PathAgent.h" />

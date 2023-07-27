@@ -43,7 +43,9 @@ Creating a Pathing Agent
 //#include "memory.h"
 #include "NodeMap.h"
 #include <iostream>
+#include "Agent.h"
 #include "PathAgent.h"
+#include "GoToPointBehaviour.h"
 
 using namespace std;
 using namespace AIForGames;
@@ -111,6 +113,10 @@ int main(int argc, char* argv[])
 	////Find the vector of nodes that constitute the A* path between (1, 1) and (10, 2)
 	//vector<Node*> nodeMapPath = map->AStarSearch(start, end);
 	//cout << "The A* path consists of " << nodeMapPath.size() << " nodes." << endl;
+
+	// Create a new agent behaviour with the existing node map and the 'point and click' behaviour
+	Agent agent_behaviour(map, new GoToPointBehaviour());
+	//agent_behaviour.Set
 
 	PathAgent agent;
 	agent.SetNode(start);
